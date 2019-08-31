@@ -1,0 +1,75 @@
+apply plugin: 'com.android.application'
+apply plugin: 'kotlin-android'
+apply plugin: 'kotlin-android-extensions'
+apply plugin: 'kotlin-kapt'
+
+apply from: "$rootProject.projectDir/config.gradle"
+apply from: "$rootProject.projectDir/dependencies.gradle"
+
+def config = ext.configuration
+def libs = ext.presentationDependencies
+def data = ext.dataDependencies
+def extraLibs = ext.commonDependencies
+def compileTimeLibs = ext.compileTimeDependencies
+def architectureLibs = ext.architectureDependencies
+
+android {
+    compileSdkVersion 29
+    buildToolsVersion "29.0.2"
+    defaultConfig {
+        applicationId config.package
+        minSdkVersion config.minSdkVersion
+        targetSdkVersion config.targetSdkVersion
+        versionCode config.versionCode
+        versionName config.versionName
+        testInstrumentationRunner config.testInstrumentationRunner
+        multiDexEnabled true
+        vectorDrawables.useSupportLibrary = true
+    }
+    buildTypes {
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+        }
+    }
+}
+
+dependencies {
+    implementation fileTree(dir: 'libs', include: ['*.jar'])
+    implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
+    implementation 'androidx.core:core-ktx:1.0.2'
+    implementation 'androidx.constraintlayout:constraintlayout:1.1.3'
+
+    for(dependency in libs){
+        implementation dependency.value
+    }
+
+    for(dependency in data){
+        implementation dependency.value
+    }
+
+    for(dependency in extraLibs){
+        implementation dependency.value
+    }
+
+    for(dependency in architectureLibs){
+        implementation dependency.value
+    }
+
+    kapt "${compileTimeLibs.roomCompiler}"
+    kapt "${compileTimeLibs.daggerCompiler}"
+    implementation "${extraLibs.dagger}"
+    compileOnly "${compileTimeLibs.javaxAnnotation}"
+    compileOnly "${compileTimeLibs.javaxInject}"
+    implementation "com.google.code.gson:gson:2.8.5"
+
+    implementation('com.github.ihsanbal:LoggingInterceptor:2.0.0') {
+        exclude group: 'org.json', module: 'json'
+    }
+
+
+
+    testImplementation 'junit:junit:4.12'
+    androidTestImplementation 'androidx.test:runner:1.2.0'
+    androidTestImplementation 'androidx.test.espresso:espresso-core:3.2.0'
+}

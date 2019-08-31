@@ -1,0 +1,109 @@
+ext.versions = [
+        kotlinVersion                 : '1.3.31',
+        gradlePlugin                  : '3.4.2',
+        retrolambdaPlugin             : "3.7.0",
+
+        androidxVersion               : "1.0.2",
+
+        //Kotlin
+        rxKotlinVersion               : '2.0.0-RC1',
+
+        daggerVersion                 : '2.21',
+
+        rxJavaVersion                 : '2.1.5',
+        rxAndroidVersion              : '2.0.1',
+
+        javaxAnnotationVersion        : '1.0',
+        javaxInjectVersion            : '1',
+
+        gsonVersion                   : '2.7',
+
+        room_version                  : "2.1.0",
+
+        retrofitVersion               : '2.3.0',
+        dexterVersion                 : '2.3.1',
+        okHttpParamsInterceptorVersion: 'v0.9',
+        okHttpVersion                 : '3.6.0',
+
+        picasso                       : "2.5.2",
+        picassoDownloader             : "1.0.2",
+
+        multidexVersion               : "2.0.0",
+
+        timber                        : "4.6.0",
+
+        moxy                          : "1.5.5",
+
+        espressoVersion               : "3.0.1",
+
+        glideVersion                  : "4.9.0"
+]
+
+ext.gradleDependencies = [
+        gradle: "com.android.tools.build:gradle:${versions.gradlePlugin}",
+        kotlin: "org.jetbrains.kotlin:kotlin-gradle-plugin:${versions.kotlinVersion}",
+
+]
+
+ext.compileTimeDependencies = [
+        daggerCompiler       : "com.google.dagger:dagger-compiler:${versions.daggerVersion}",
+        androidDaggerCompiler: "com.google.dagger:dagger-android-processor:${versions.daggerVersion}",
+        javaxAnnotation      : "javax.annotation:jsr250-api:${versions.javaxAnnotationVersion}",
+        javaxInject          : "javax.inject:javax.inject:${versions.javaxInjectVersion}",
+        espressoIdling       : "androidx.test.espresso:espresso-idling-resource:3.1.0-alpha3",
+        roomCompiler         : "androidx.room:room-compiler:2.1.0",
+        moxyCompiler         : "com.arello-mobile:moxy-compiler:${versions.moxy}"
+]
+
+ext.architectureDependencies = [
+        /** Architecture */
+        moxy       : "com.arello-mobile:moxy:${versions.moxy}",
+        moxyAndroid: "com.arello-mobile:moxy-android:${versions.moxy}",
+
+]
+
+ext.commonDependencies = [
+        kotlinStdLib        : "org.jetbrains.kotlin:kotlin-stdlib:${versions.kotlinVersion}",
+        dagger              : "com.google.dagger:dagger:${versions.daggerVersion}",
+        daggerAndroid       : "com.google.dagger:dagger-android:${versions.daggerVersion}",
+        daggerAndroidSupport: "com.google.dagger:dagger-android:${versions.daggerVersion}",
+        rxJava              : "io.reactivex.rxjava2:rxjava:${versions.rxJavaVersion}",
+        rxAndroid           : "io.reactivex.rxjava2:rxandroid:${versions.rxAndroidVersion}",
+        rxKotlin            : "io.reactivex:rxkotlin:${versions.rxKotlinVersion}",
+        espressoIdling      : "androidx.test.espresso:espresso-idling-resource:3.1.0-alpha3",
+
+        room                : "androidx.room:room-runtime:2.1.0",
+        roomRxjava          : "androidx.room:room-rxjava2:2.1.0"
+]
+
+ext.dataDependencies = [
+        retrofit2               : "com.squareup.retrofit2:retrofit:${versions.retrofitVersion}",
+        retrofit2Converter      : "com.squareup.retrofit2:converter-gson:${versions.retrofitVersion}",
+        retrofit2RxAdapter      : "com.squareup.retrofit2:adapter-rxjava2:${versions.retrofitVersion}",
+        gson                    : "com.google.code.gson:gson:${versions.gsonVersion}",
+        okHttpParamsInterceptor : "com.github.jkyeo:okhttp-basicparamsinterceptor:${versions.okHttpParamsInterceptorVersion}",
+        okHttpLoggingInterceptor: "com.squareup.okhttp3:logging-interceptor:${versions.okHttpVersion}",
+        timber                  : "com.jakewharton.timber:timber:${versions.timber}",
+        picasso                 : "com.squareup.picasso:picasso:${versions.picasso}",
+        picassoDownloader       : "com.jakewharton.picasso:picasso2-okhttp3-downloader:${versions.picassoDownloader}",
+]
+
+ext.presentationDependencies = [
+        /** android support libs */
+        supportAppCompat   : "androidx.appcompat:appcompat:${versions.androidxVersion}",
+        supportDesign      : "com.google.android.material:material:1.0.0",
+        supportRecyclerView: "androidx.recyclerview:recyclerview:1.0.0",
+        supportCardView    : "androidx.cardview:cardview:1.0.0",
+
+        picasso            : "com.squareup.picasso:picasso:${versions.picasso}",
+        picassoDownloader  : "com.jakewharton.picasso:picasso2-okhttp3-downloader:${versions.picassoDownloader}",
+
+        kotlinJdk          : "org.jetbrains.kotlin:kotlin-stdlib-jdk7:${versions.kotlinVersion}",
+        multidex           : "androidx.multidex:multidex:${versions.multidexVersion}",
+        timber             : "com.jakewharton.timber:timber:${versions.timber}",
+        glideVersion       : "com.github.bumptech.glide:glide:${versions.glideVersion}"
+]
+
+ext.domainDependencies = [
+        timber: "com.jakewharton.timber:timber:${versions.timber}"
+]
