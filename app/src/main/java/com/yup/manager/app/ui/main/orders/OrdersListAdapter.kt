@@ -1,4 +1,4 @@
-package com.yup.manager.app.ui.main
+package com.yup.manager.app.ui.main.orders
 
 import android.view.LayoutInflater
 import android.view.View
@@ -26,8 +26,9 @@ class OrdersListAdapter(private var data: MutableList<OrderSample>) :
 
     fun addItem(order: OrderSample, position: Int) {
         data.removeAt(position)
+        notifyItemRemoved(position)
         data.add(order)
-        notifyDataSetChanged()
+        notifyItemInserted(data.size)
     }
 
     fun removeAt(position: Int) {

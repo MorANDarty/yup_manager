@@ -9,4 +9,7 @@
     <color name="colorPrimaryText">#D6000000</color>
     <color name="colorConfirmOrder">#00B212</color>
     <color name="colorConfirmBack">#EBFFEE</color>
+    <color name="white">#FFF</color>
+    <color name="black">#000</color>
+    <color name="gray">#6C698D</color>
 </resources>

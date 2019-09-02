@@ -10,16 +10,16 @@ import java.util.ArrayList
 fun getSomeOrders():List<OrderSample>{
     val list = ArrayList<OrderSample>()
     list.add(OrderSample("13:20", "Виталий Царь", "Прокат жопы"
-        ,"https://vk.com/your_loover?z=photo143937286_457257335%2Falbum143937286_0%2Frev","unchecked"))
+        ,"https://i.ytimg.com/vi/7KLTBuqFcYQ/hqdefault.jpg","unchecked"))
     list.add(OrderSample("13:40", "Виталий Царь", "Прокат жопы"
-        ,"https://vk.com/your_loover?z=photo143937286_457257335%2Falbum143937286_0%2Frev","unchecked"))
+        ,"https://i.ytimg.com/vi/7KLTBuqFcYQ/hqdefault.jpg","unchecked"))
     list.add(OrderSample("13:20", "Ильмир Шагабиев", "Прокат жопы"
-        ,"https://vk.com/your_loover?z=photo143937286_457257335%2Falbum143937286_0%2Frev","checked"))
+        ,"https://i.ytimg.com/vi/7KLTBuqFcYQ/hqdefault.jpg","checked"))
     list.add(OrderSample("13:20", "Вадим Горбунов", "Прокат жопы"
-        ,"https://vk.com/your_loover?z=photo143937286_457257335%2Falbum143937286_0%2Frev","unchecked"))
+        ,"https://i.ytimg.com/vi/7KLTBuqFcYQ/hqdefault.jpg","unchecked"))
     list.add(OrderSample("13:20", "Эрик Ф.", ""
-        ,"https://vk.com/your_loover?z=photo143937286_457257335%2Falbum143937286_0%2Frev","unchecked"))
+        ,"https://i.ytimg.com/vi/7KLTBuqFcYQ/hqdefault.jpg","unchecked"))
     list.add(OrderSample("13:20", "Булат Каримов", "Прокат жопы"
-        ,"https://vk.com/your_loover?z=photo143937286_457257335%2Falbum143937286_0%2Frev","checked"))
+        ,"https://i.ytimg.com/vi/7KLTBuqFcYQ/hqdefault.jpg","checked"))
     return list
 }
