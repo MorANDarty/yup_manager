@@ -7,7 +7,7 @@ import java.util.ArrayList
 
 //created by Ilmir Shagabiev
 
-fun getSomeOrders():List<OrderSample>{
+fun getSomeOrders():MutableList<OrderSample>{
     val list = ArrayList<OrderSample>()
     list.add(OrderSample("13:20", "Виталий Царь", "Прокат жопы"
         ,"https://i.ytimg.com/vi/7KLTBuqFcYQ/hqdefault.jpg","unchecked"))
