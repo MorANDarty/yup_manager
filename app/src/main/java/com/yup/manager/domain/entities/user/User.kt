@@ -2,4 +2,8 @@ package com.yup.manager.domain.entities.user
 
 //created by Ilmir Shagabiev
 
-data class User (private var name:String?)
+data class User(
+    var name: String?,
+    var rating: String?,
+    var likes: String?
+)

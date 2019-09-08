@@ -7,7 +7,7 @@ import com.yup.manager.app.ui.main.orders.OrdersFragment
 import com.yup.manager.app.ui.main.profile.ProfileFragment
 import kotlinx.android.synthetic.main.activity_main.*
 
-class MainActivity : AppCompatActivity() {
+class MainActivity : AppCompatActivity(), MainView {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -36,6 +36,11 @@ class MainActivity : AppCompatActivity() {
         adapter.addFragment(OrdersFragment.newInstance())
 
         view_pager_main.adapter = adapter
+        view_pager_main.currentItem = 1
+    }
+
+    override fun setNewCurrent(position: Int) {
+        view_pager_main.currentItem = position
     }
 
 }

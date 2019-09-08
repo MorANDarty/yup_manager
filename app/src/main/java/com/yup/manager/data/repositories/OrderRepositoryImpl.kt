@@ -9,7 +9,7 @@ import javax.inject.Inject
 
 //created by Ilmir Shagabiev
 
-class OrderRepositoryImpl @Inject constructor():IOrderRepository {
+class OrderRepositoryImpl:IOrderRepository {
 
     override fun getDefault(): Single<List<OrderSample>> = getSomeOrders().toSingle()
 }

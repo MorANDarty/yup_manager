@@ -6,6 +6,6 @@ import com.arellomobile.mvp.MvpView
 
 interface MainView : MvpView {
 
-    fun setOnClickListeners()
+    fun setNewCurrent(position:Int)
 
 }

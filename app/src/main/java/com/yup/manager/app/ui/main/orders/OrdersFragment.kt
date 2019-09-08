@@ -1,5 +1,7 @@
 package com.yup.manager.app.ui.main.orders
 
+import android.content.Context
+import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -17,6 +19,8 @@ import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import com.yup.manager.app.ManagerApplication
 import com.yup.manager.app.ui.ViewModelFactory
+import com.yup.manager.app.ui.main.MainView
+import com.yup.manager.app.ui.qrScanning.QrScanningActivity
 import javax.inject.Inject
 
 class OrdersFragment : Fragment() {
@@ -36,6 +40,11 @@ class OrdersFragment : Fragment() {
         return inflater.inflate(R.layout.fragment_orders, container, false)
     }
 
+
+    override fun onAttach(context: Context) {
+        super.onAttach(context)
+        ManagerApplication().getAppComponent()?.inject(this)
+    }
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         orderViewModel = ViewModelProviders.of(this, viewModelFactory)
@@ -49,6 +58,18 @@ class OrdersFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
         orderViewModel.getMockOrders()
         rv_orders.layoutManager = LinearLayoutManager(context)
+        initClickListeners()
+    }
+
+    private fun initClickListeners() {
+        btn_scan.setOnClickListener {
+            val intent = Intent(this.context, QrScanningActivity::class.java)
+            startActivity(intent)
+        }
+
+        img_menu_ic.setOnClickListener {
+            (activity as MainView).setNewCurrent(0)
+        }
     }
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
@@ -89,6 +110,12 @@ class OrdersFragment : Fragment() {
     }
 
     private fun observeLoadingData() {
+        orderViewModel.showLoadingLiveData.observe(this, Observer {
+            showLoading(it)
+        })
+    }
+
+    private fun observeOrderListData() {
         orderViewModel.orderListLiveData.observe(this, Observer {
             if(it.data!=null){
                 it.data.forEach {
@@ -97,12 +124,6 @@ class OrdersFragment : Fragment() {
                 rv_orders.adapter = OrdersListAdapter(orderList)
             }
 
-        })
-    }
-
-    private fun observeOrderListData() {
-        orderViewModel.showLoadingLiveData.observe(this, Observer {
-            showLoading(it)
         })
     }
 

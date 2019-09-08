@@ -8,11 +8,11 @@ import com.yup.manager.app.di.components.DaggerDataComponent
 import com.yup.manager.app.di.components.DataComponent
 import com.yup.manager.app.di.modules.ApplicationModule
 import com.yup.manager.app.di.modules.DataModule
+import com.yup.manager.app.di.modules.InteractorModule
 
 //created by Ilmir Shagabiev
 
 class ManagerApplication : Application() {
-
 
     override fun onCreate() {
         super.onCreate()
@@ -27,6 +27,7 @@ class ManagerApplication : Application() {
     private fun initApplicationComponent() {
         applicationComponent = DaggerApplicationComponent.builder()
             .applicationModule(ApplicationModule(this))
+            .interactorModule(InteractorModule())
             .dataComponent(initDataComponent())
             .build()
     }
