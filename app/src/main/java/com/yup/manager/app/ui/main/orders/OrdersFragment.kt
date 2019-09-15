@@ -11,21 +11,22 @@ import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.yup.manager.R
-import com.yup.manager.domain.entities.order.OrderSample
 import com.yup.manager.domain.utils.getSomeOrders
 import kotlinx.android.synthetic.main.fragment_orders.*
 import android.view.MotionEvent
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import com.yup.manager.app.ManagerApplication
+import com.yup.manager.app.ui.qrScanning.ScanningActivity
 import com.yup.manager.app.ui.ViewModelFactory
+import com.yup.manager.app.ui.main.MainActivity
 import com.yup.manager.app.ui.main.MainView
-import com.yup.manager.app.ui.qrScanning.QrScanningActivity
+import kotlinx.android.synthetic.main.fragment_orders.view.*
 import javax.inject.Inject
 
 class OrdersFragment : Fragment() {
 
-    val orderList = getSomeOrders()
+    var orderList = getSomeOrders()
 
     @Inject
     lateinit var viewModelFactory: ViewModelFactory
@@ -37,7 +38,16 @@ class OrdersFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_orders, container, false)
+        val v = inflater.inflate(R.layout.fragment_orders, container, false)
+        v.btn_scan.setOnClickListener {
+            val intent = Intent(activity as MainActivity, ScanningActivity::class.java)
+            startActivity(intent)
+        }
+
+        v.img_menu_ic.setOnClickListener {
+            (activity as MainView).setNewCurrent(0)
+        }
+        return v
     }
 
 
@@ -58,18 +68,6 @@ class OrdersFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
         orderViewModel.getMockOrders()
         rv_orders.layoutManager = LinearLayoutManager(context)
-        initClickListeners()
-    }
-
-    private fun initClickListeners() {
-        btn_scan.setOnClickListener {
-            val intent = Intent(this.context, QrScanningActivity::class.java)
-            startActivity(intent)
-        }
-
-        img_menu_ic.setOnClickListener {
-            (activity as MainView).setNewCurrent(0)
-        }
     }
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
@@ -78,10 +76,13 @@ class OrdersFragment : Fragment() {
         rv_orders.adapter = OrdersListAdapter(getSomeOrders().toMutableList())
         val swipeHandler = object : SwipeToDeleteCallback(context!!) {
             override fun onSwiped(viewHolder: RecyclerView.ViewHolder, direction: Int) {
+                val index = viewHolder.adapterPosition
                 if (viewHolder.itemView.tag == "unchecked") {
                     //Todo show dialog and add item
+
                 } else {
-                    (rv_orders.adapter as OrdersListAdapter).removeAt(viewHolder.adapterPosition)
+                    orderList.removeAt(index)
+                    (rv_orders.adapter as OrdersListAdapter).updateData(orderList)
                     //Todo show dialog
                 }
             }

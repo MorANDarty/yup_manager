@@ -3,6 +3,7 @@ package com.yup.manager.app.ui.main.orders
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.yup.manager.R
@@ -36,6 +37,14 @@ class OrdersListAdapter(private var data: MutableList<OrderSample>) :
         notifyItemRemoved(position)
     }
 
+    fun updateData(newList:List<OrderSample>?){
+        val diffCallback = newList?.let { OrdersDiffUtils(data, it) }
+        val diffResults = diffCallback?.let { DiffUtil.calculateDiff(it) }
+
+        data = newList as MutableList<OrderSample>
+        diffResults?.dispatchUpdatesTo(this)
+    }
+
     inner class OrderViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         fun bind(order: OrderSample) {
             if (order.state != "canceled") {
@@ -47,6 +56,10 @@ class OrdersListAdapter(private var data: MutableList<OrderSample>) :
                     itemView.background = itemView.resources.getDrawable(R.drawable.outline_order_unchecked)
                     itemView.clipToOutline = true
                     itemView.tag = "unchecked"
+                }else{
+                    itemView.background = itemView.resources.getDrawable(R.drawable.outline_order_checked)
+                    itemView.clipToOutline = true
+                    itemView.tag = "checked"
                 }
             }
         }

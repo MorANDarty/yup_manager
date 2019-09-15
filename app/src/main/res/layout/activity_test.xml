@@ -3,8 +3,9 @@
         xmlns:android="http://schemas.android.com/apk/res/android"
         xmlns:tools="http://schemas.android.com/tools"
         xmlns:app="http://schemas.android.com/apk/res-auto"
-        android:layout_width="match_parent" android:layout_height="match_parent"
-        tools:context=".app.ui.qrScanning.QrScanningActivity"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        tools:context=".app.ui.qrScanning.ScanningActivity"
         android:background="@color/black">
 
     <TextView
@@ -20,8 +21,9 @@
 
     <androidx.cardview.widget.CardView
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="0dp"
             app:cardCornerRadius="20dp"
+            android:id="@+id/qr_view"
             app:layout_constraintTop_toBottomOf="@+id/tv_info_qr"
             app:layout_constraintBottom_toTopOf="@+id/ll_back_qr"
             android:layout_marginLeft="40dp"
@@ -29,10 +31,12 @@
             android:layout_marginTop="40dp"
             android:layout_marginBottom="40dp"
     >
-        <me.dm7.barcodescanner.zxing.ZXingScannerView
+
+        <FrameLayout
+                android:id="@+id/frame_layout_camera"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:id="@+id/camera_qr"/>
+                android:layout_height="match_parent"
+        />
     </androidx.cardview.widget.CardView>
 
     <LinearLayout
@@ -58,7 +62,7 @@
                 android:text="Назад"
                 android:textSize="18sp"
                 android:background="@drawable/text_back_background"
-        android:textStyle="bold"/>
+                android:textStyle="bold"/>
     </LinearLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>
