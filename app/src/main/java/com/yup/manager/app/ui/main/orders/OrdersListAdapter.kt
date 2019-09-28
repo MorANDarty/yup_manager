@@ -9,6 +9,8 @@ import com.bumptech.glide.Glide
 import com.yup.manager.R
 import com.yup.manager.domain.entities.order.OrderSample
 import kotlinx.android.synthetic.main.item_order.view.*
+import java.util.*
+
 
 //created by Ilmir Shagabiev
 
@@ -37,7 +39,7 @@ class OrdersListAdapter(private var data: MutableList<OrderSample>) :
         notifyItemRemoved(position)
     }
 
-    fun updateData(newList:List<OrderSample>?){
+    fun updateData(newList: List<OrderSample>?) {
         val diffCallback = newList?.let { OrdersDiffUtils(data, it) }
         val diffResults = diffCallback?.let { DiffUtil.calculateDiff(it) }
 
@@ -56,10 +58,17 @@ class OrdersListAdapter(private var data: MutableList<OrderSample>) :
                     itemView.background = itemView.resources.getDrawable(R.drawable.outline_order_unchecked)
                     itemView.clipToOutline = true
                     itemView.tag = "unchecked"
-                }else{
+                } else {
                     itemView.background = itemView.resources.getDrawable(R.drawable.outline_order_checked)
                     itemView.clipToOutline = true
                     itemView.tag = "checked"
+                }
+            }
+            if (order.isTitleHourse == true) {
+                itemView.tv_hour.text = order.titleHourse
+                val hour = Date().hours
+                if(hour.toString() == order.titleHourse){
+                    itemView.tv_hour.setTextColor(itemView.resources.getColor(R.color.colorRedText))
                 }
             }
         }

@@ -9,6 +9,7 @@ import com.yup.manager.app.di.modules.ViewModelModule
 import com.yup.manager.app.di.scopes.AppScope
 import com.yup.manager.app.ui.main.orders.OrdersFragment
 import com.yup.manager.app.ui.main.profile.ProfileFragment
+import com.yup.manager.app.ui.qrScanning.ScanningActivity
 import com.yup.manager.domain.repositories.IUserRepository
 import dagger.Component
 
@@ -24,6 +25,7 @@ interface ApplicationComponent {
     fun inject(mainActivity: MainActivity)
     fun inject(ordersFragment: OrdersFragment)
     fun inject(profileFragment:ProfileFragment)
+    fun inject(qrFragment:ScanningActivity)
 
     val context:Context
     /*val userRepo:IUserRepository*/

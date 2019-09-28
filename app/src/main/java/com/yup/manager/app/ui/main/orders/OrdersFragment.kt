@@ -14,6 +14,7 @@ import com.yup.manager.R
 import com.yup.manager.domain.utils.getSomeOrders
 import kotlinx.android.synthetic.main.fragment_orders.*
 import android.view.MotionEvent
+import android.widget.Toast
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import com.yup.manager.app.ManagerApplication
@@ -124,7 +125,9 @@ class OrdersFragment : Fragment() {
                 }
                 rv_orders.adapter = OrdersListAdapter(orderList)
             }
-
+            else if(it.error!=null){
+                Toast.makeText(context, it.error.message, Toast.LENGTH_LONG).show()
+            }
         })
     }
 

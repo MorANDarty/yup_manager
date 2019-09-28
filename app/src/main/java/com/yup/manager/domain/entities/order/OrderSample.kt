@@ -7,4 +7,6 @@ data class OrderSample (var id:String?,
                         var customerName:String?,
                         var name:String?,
                         var avatar:String?,
-                        var state:String?)
+                        var state:String?,
+                        var titleHourse:String?,
+                        var isTitleHourse:Boolean?)
