@@ -11,7 +11,7 @@
     <color name="colorConfirmBack">#EBFFEE</color>
     <color name="white">#FFF</color>
     <color name="black">#000</color>
-    <color name="gray">#6C698D</color>
+    <color name="gray">#99FFFFFF</color>
     <color name="colorButtonProfile">#E61D1D1D</color>
     <color name="centerColorProfile">#252525</color>
 </resources>

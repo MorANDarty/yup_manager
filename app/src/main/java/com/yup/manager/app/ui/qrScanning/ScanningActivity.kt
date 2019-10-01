@@ -4,11 +4,13 @@ import android.Manifest
 import android.content.pm.PackageManager
 import android.os.Build
 import android.os.Bundle
+import android.util.Log
 import android.view.View
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
+import com.bumptech.glide.Glide
 import com.google.zxing.Result
 import com.yup.manager.R
 import com.yup.manager.app.ManagerApplication
@@ -24,7 +26,6 @@ class ScanningActivity : AppCompatActivity(), ZXingScannerView.ResultHandler {
 
     @Inject
     lateinit var viewModelFactory: ViewModelFactory
-
     private lateinit var qrViewModel: QrScanningViewModel
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -35,8 +36,8 @@ class ScanningActivity : AppCompatActivity(), ZXingScannerView.ResultHandler {
         ll_back_qr.setOnClickListener {
             finish()
         }
-        qrViewModel = ViewModelProviders.of(this, viewModelFactory).get(QrScanningViewModel::class.java)
         (application as ManagerApplication).getAppComponent()?.inject(this)
+        qrViewModel = ViewModelProviders.of(this, viewModelFactory).get(QrScanningViewModel::class.java)
         observeLoadingData()
         observeOrderListData()
     }
@@ -54,18 +55,32 @@ class ScanningActivity : AppCompatActivity(), ZXingScannerView.ResultHandler {
 
     private fun observeLoadingData() {
         qrViewModel.scanningRespLiveData.observe(this, Observer {
-            if(it.data!=null){
+            if (it.data != null) {
                 showMessageWindow(it.data)
+            }
+            if (it.error != null) {
+                Toast.makeText(this, "Some error ${it.error.message}", Toast.LENGTH_LONG).show()
             }
         })
     }
 
     private fun showMessageWindow(data: RespScanning) {
         Toast.makeText(this, data.details, Toast.LENGTH_LONG).show()
+        Log.i("Scanning", "showMessageWindow")
+        Glide.with(this).load(data.imgUrl).into(img_scanning)
+        tv_time_scanning.text = data.time
+        tv_name_scanning.text = data.name
+        tv_event_details_scanning.text = data.details
+        btn_exit_scanning.setOnClickListener {
+            window_info.visibility = View.INVISIBLE
+            qr_view.visibility = View.VISIBLE
+            mScannerView?.resumeCameraPreview(this)
+        }
+        qr_view.visibility = View.INVISIBLE
+        window_info.visibility = View.VISIBLE
     }
 
     override fun handleResult(result: Result?) {
-        Toast.makeText(this, result?.text, Toast.LENGTH_SHORT).show()
         qrViewModel.scanQr(result?.text)
     }
 

@@ -51,9 +51,8 @@ class DataModule(private val context: Context) {
         .addInterceptor(loggingInterceptor)
         .build()
 
-
-
-    @Provides @DataScope fun providesRetrofit(gson: Gson, okHttpClient: OkHttpClient, urlProvider: UrlProvider) : Retrofit
+    @Provides
+    @DataScope fun providesRetrofit(gson: Gson, okHttpClient: OkHttpClient, urlProvider: UrlProvider) : Retrofit
             = Retrofit.Builder()
         .baseUrl(urlProvider.getDevServer())
         .client(okHttpClient)

@@ -58,11 +58,12 @@ class OrdersFragment : Fragment() {
     }
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        (activity?.application as ManagerApplication).getAppComponent()?.inject(this)
         orderViewModel = ViewModelProviders.of(this, viewModelFactory)
             .get(OrderViewModel::class.java)
         observeLoadingData()
         observeOrderListData()
-        (activity?.application as ManagerApplication).getAppComponent()?.inject(this)
+
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {

@@ -20,7 +20,7 @@ class QrScanningViewModel @Inject constructor(
     fun scanQr(info:String?){
         showLoadingLiveData.value = true
         disposables.add(ordersInteractor.scanQr(info)
-            .doFinally { showLoadingLiveData.value = false }
+            .doFinally { showLoadingLiveData.postValue(false)}
             .subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
             .subscribe({

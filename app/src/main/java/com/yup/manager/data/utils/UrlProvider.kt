@@ -4,7 +4,7 @@ package com.yup.manager.data.utils
 
 class UrlProvider {
     fun getDevServer(): String {
-        return  ""
+        return  "https://yup.mobile.api.com"
     }
 
     fun getProductionServer():String{

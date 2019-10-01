@@ -16,5 +16,5 @@ class OrdersInteractor @Inject constructor(
 
     fun getMockOrders(): Single<List<OrderSample>> = orderRepo.getDefault().subscribeOn(Schedulers.io())
     fun deleteOrder(id: Int): Single<String> = "Nice".toSingle().subscribeOn(Schedulers.io())
-    fun scanQr(info:String?) = orderRepo.scanQr(info)
+    fun scanQr(info:String?) = orderRepo.scanQr(info).subscribeOn(Schedulers.io())
 }
