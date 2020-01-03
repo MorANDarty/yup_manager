@@ -23,7 +23,7 @@
     </style>
 
     <style name="HourseTitle">
-        <item name="android:fontFamily"></item>
+        <item name="android:fontFamily">@font/roboto_regular</item>
     </style>
 
 </resources>

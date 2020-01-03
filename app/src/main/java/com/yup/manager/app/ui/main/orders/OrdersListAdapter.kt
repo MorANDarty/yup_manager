@@ -9,6 +9,7 @@ import com.bumptech.glide.Glide
 import com.yup.manager.R
 import com.yup.manager.domain.entities.order.OrderSample
 import kotlinx.android.synthetic.main.item_order.view.*
+import timber.log.Timber
 import java.util.*
 
 
@@ -18,25 +19,19 @@ class OrdersListAdapter(private var data: MutableList<OrderSample>) :
     RecyclerView.Adapter<OrdersListAdapter.OrderViewHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): OrderViewHolder {
-        return OrderViewHolder(LayoutInflater.from(parent.context).inflate(R.layout.item_order, parent, false))
+        return OrderViewHolder(
+            LayoutInflater.from(parent.context).inflate(
+                R.layout.item_order,
+                parent,
+                false
+            )
+        )
     }
 
     override fun getItemCount(): Int = data.size
 
     override fun onBindViewHolder(holder: OrderViewHolder, position: Int) {
         holder.bind(data[position])
-    }
-
-    fun addItem(order: OrderSample, position: Int) {
-        data.removeAt(position)
-        notifyItemRemoved(position)
-        data.add(order)
-        notifyItemInserted(data.size)
-    }
-
-    fun removeAt(position: Int) {
-        data.removeAt(position)
-        notifyItemRemoved(position)
     }
 
     fun updateData(newList: List<OrderSample>?) {
@@ -55,21 +50,30 @@ class OrdersListAdapter(private var data: MutableList<OrderSample>) :
                 itemView.tv_time_item.text = order.time
                 Glide.with(itemView).load(order.avatar).into(itemView.img_avatar_item)
                 if (order.state == "unchecked") {
-                    itemView.background = itemView.resources.getDrawable(R.drawable.outline_order_unchecked)
-                    itemView.clipToOutline = true
+                    itemView.ll_info.background =
+                        itemView.resources.getDrawable(R.drawable.outline_order_unchecked)
+                    itemView.ll_info.clipToOutline = true
                     itemView.tag = "unchecked"
+                    itemView.tv_customer_name.setTextColor(itemView.resources.getColor(R.color.white))
+                    itemView.tv_order_name_item.setTextColor(itemView.resources.getColor(R.color.white))
                 } else {
-                    itemView.background = itemView.resources.getDrawable(R.drawable.outline_order_checked)
-                    itemView.clipToOutline = true
+                    itemView.ll_info.background =
+                        itemView.resources.getDrawable(R.drawable.outline_order_checked)
+                    itemView.ll_info.clipToOutline = true
                     itemView.tag = "checked"
                 }
             }
             if (order.isTitleHourse == true) {
                 itemView.tv_hour.text = order.titleHourse
+                itemView.tv_hour.visibility = View.VISIBLE
                 val hour = Date().hours
-                if(hour.toString() == order.titleHourse){
+                if (hour.toString() == order.titleHourse) {
                     itemView.tv_hour.setTextColor(itemView.resources.getColor(R.color.colorRedText))
                 }
+                Timber.d("title hourse = ${order.titleHourse}, current hourse = $hour")
+                val lParams = itemView.layoutParams as RecyclerView.LayoutParams
+                lParams.setMargins(0, 50, 0, 0)
+                itemView.layoutParams = lParams
             }
         }
     }

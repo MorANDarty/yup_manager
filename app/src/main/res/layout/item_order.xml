@@ -1,83 +1,102 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-              xmlns:app="http://schemas.android.com/apk/res-auto"
-              android:orientation="horizontal"
-              android:layout_width="match_parent"
-              android:layout_height="50dp"
-              android:layout_marginTop="5dp"
-              android:layout_marginBottom="5dp"
-              android:layout_marginLeft="15dp"
-              android:layout_marginRight="15dp"
-              android:layout_weight="11">
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        android:layout_width="match_parent"
+        android:layout_height="80dp"
+        android:layout_marginLeft="8dp"
+        android:layout_marginTop="3dp"
+        android:layout_marginBottom="3dp"
+        android:orientation="horizontal"
+        android:paddingTop="5dp"
+        android:paddingBottom="5dp">
 
     <TextView
+            android:id="@+id/tv_hour"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textSize="45sp"
             android:layout_gravity="center"
+            android:layout_marginLeft="20dp"
+            android:layout_marginRight="10dp"
+            android:foregroundGravity="center"
             android:gravity="end"
-            android:layout_weight="3"
             android:text="13"
-            android:id="@+id/tv_hour"
+            android:textSize="30sp"
+            android:textStyle="italic|bold"
             android:visibility="invisible"
-    />
-
-    <androidx.cardview.widget.CardView
-            android:layout_width="50dp"
-            android:layout_height="50dp"
-            app:cardCornerRadius="8dp"
-            android:layout_gravity="top"
-            android:elevation="3dp"
-            android:layout_weight="1"
-            android:layout_marginLeft="20dp">
-
-        <ImageView
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:id="@+id/img_avatar_item"
-                android:scaleType="center"
-        />
-
-    </androidx.cardview.widget.CardView>
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
 
     <LinearLayout
-            android:layout_width="wrap_content"
+            android:id="@+id/ll_info"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:orientation="vertical"
-            android:layout_weight="6">
+            android:layout_marginLeft="12dp"
+            android:orientation="horizontal"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintLeft_toRightOf="@+id/tv_hour"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
 
-        <TextView android:layout_width="wrap_content"
-                  android:layout_height="wrap_content"
-                  android:text="Аренда корта с инвентарем"
-                  android:layout_marginLeft="10dp"
-                  android:textColor="@color/colorPrimaryText"
-                  android:id="@+id/tv_order_name_item"/>
+        <androidx.cardview.widget.CardView
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:layout_gravity="top"
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="10dp"
+                android:elevation="3dp"
+                android:foregroundGravity="center"
+                app:cardCornerRadius="15dp">
+
+            <ImageView
+                    android:id="@+id/img_avatar_item"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:scaleType="center" />
+
+        </androidx.cardview.widget.CardView>
 
         <LinearLayout
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="horizontal"
-                android:layout_marginTop="10dp">
+                android:orientation="vertical">
 
             <TextView
+                    android:id="@+id/tv_order_name_item"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:id="@+id/tv_time_item"
                     android:layout_marginLeft="10dp"
-                    android:text="13:20"
-                    android:textColor="@color/colorRedText"
-                    android:background="@drawable/background_time"/>
+                    android:text="Аренда корта с инвентарем"
+                    android:textColor="@color/colorPrimaryText"
+                    android:fontFamily="@font/futura_new_medium"/>
 
-            <TextView
+            <LinearLayout
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:id="@+id/tv_customer_name"
-                    android:layout_marginLeft="10dp"
-                    android:text="Виталий Царь"
-                    android:textColor="@color/colorSecondaryText"
-            />
+                    android:layout_marginTop="5dp"
+                    android:orientation="horizontal">
+
+                <TextView
+                        android:id="@+id/tv_time_item"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="10dp"
+                        android:background="@drawable/background_time"
+                        android:text="13:20"
+                        android:fontFamily="@font/sanspro_italic"
+                        android:textColor="@color/colorRedText" />
+
+                <TextView
+                        android:id="@+id/tv_customer_name"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="10dp"
+                        android:text="Виталий Царь"
+                        android:textColor="@color/colorSecondaryText"
+                        android:fontFamily="@font/futura_new_medium"/>
+            </LinearLayout>
+
         </LinearLayout>
-
     </LinearLayout>
 
-</LinearLayout>
+</androidx.constraintlayout.widget.ConstraintLayout>

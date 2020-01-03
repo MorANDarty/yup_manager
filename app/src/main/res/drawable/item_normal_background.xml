@@ -11,9 +11,6 @@
 
                     <corners android:topLeftRadius="15dp"
                              android:bottomLeftRadius="15dp"/>
-
-                    <padding android:top="10dp"
-                             android:bottom="10dp"/>
                 </shape>
             </item>
         </layer-list>

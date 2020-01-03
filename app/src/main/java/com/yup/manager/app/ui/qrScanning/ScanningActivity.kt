@@ -1,23 +1,24 @@
 package com.yup.manager.app.ui.qrScanning
 
 import android.Manifest
+import android.app.Activity
+import android.content.Intent
 import android.content.pm.PackageManager
 import android.os.Build
 import android.os.Bundle
-import android.util.Log
 import android.view.View
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
-import com.bumptech.glide.Glide
 import com.google.zxing.Result
 import com.yup.manager.R
 import com.yup.manager.app.ManagerApplication
 import com.yup.manager.app.ui.ViewModelFactory
 import com.yup.manager.domain.entities.order.RespScanning
-import kotlinx.android.synthetic.main.activity_test.*
+import kotlinx.android.synthetic.main.activity_scanning.*
 import me.dm7.barcodescanner.zxing.ZXingScannerView
+import timber.log.Timber
 import javax.inject.Inject
 
 class ScanningActivity : AppCompatActivity(), ZXingScannerView.ResultHandler {
@@ -30,7 +31,7 @@ class ScanningActivity : AppCompatActivity(), ZXingScannerView.ResultHandler {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_test)
+        setContentView(R.layout.activity_scanning)
         doRequestPermission()
         initScannerView()
         ll_back_qr.setOnClickListener {
@@ -66,8 +67,8 @@ class ScanningActivity : AppCompatActivity(), ZXingScannerView.ResultHandler {
 
     private fun showMessageWindow(data: RespScanning) {
         Toast.makeText(this, data.details, Toast.LENGTH_LONG).show()
-        Log.i("Scanning", "showMessageWindow")
-        Glide.with(this).load(data.imgUrl).into(img_scanning)
+        Timber.d("Back to order fragment")
+        /*Glide.with(this).load(data.imgUrl).into(img_scanning)
         tv_time_scanning.text = data.time
         tv_name_scanning.text = data.name
         tv_event_details_scanning.text = data.details
@@ -77,7 +78,14 @@ class ScanningActivity : AppCompatActivity(), ZXingScannerView.ResultHandler {
             mScannerView?.resumeCameraPreview(this)
         }
         qr_view.visibility = View.INVISIBLE
-        window_info.visibility = View.VISIBLE
+        window_info.visibility = View.VISIBLE*/
+        val intent = Intent()
+        intent.putExtra("img_url", data.imgUrl)
+        intent.putExtra("name", data.name)
+        intent.putExtra("time", data.time)
+        intent.putExtra("details", data.details)
+        setResult(Activity.RESULT_OK, intent)
+        finish()
     }
 
     override fun handleResult(result: Result?) {

@@ -6,16 +6,11 @@
             <item>
                 <shape>
                     <gradient android:angle="270"
-                              android:endColor="@color/colorRedText"
-                              android:startColor="@color/colorRedText"/>
+                              android:endColor="@color/colorBackTime"
+                              android:startColor="@color/colorBackTime"/>
 
                     <corners android:topLeftRadius="15dp"
                              android:bottomLeftRadius="15dp"/>
-
-                    <padding android:right="24dp"
-                             android:left="24dp"
-                             android:top="24dp"
-                             android:bottom="24dp"/>
                 </shape>
             </item>
         </layer-list>

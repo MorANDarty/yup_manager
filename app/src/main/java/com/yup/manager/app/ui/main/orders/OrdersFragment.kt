@@ -1,5 +1,6 @@
 package com.yup.manager.app.ui.main.orders
 
+import android.app.Activity
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
@@ -17,11 +18,13 @@ import android.view.MotionEvent
 import android.widget.Toast
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
+import com.bumptech.glide.Glide
 import com.yup.manager.app.ManagerApplication
 import com.yup.manager.app.ui.qrScanning.ScanningActivity
 import com.yup.manager.app.ui.ViewModelFactory
 import com.yup.manager.app.ui.main.MainActivity
 import com.yup.manager.app.ui.main.MainView
+import com.yup.manager.domain.entities.order.OrderSample
 import kotlinx.android.synthetic.main.fragment_orders.view.*
 import javax.inject.Inject
 
@@ -34,6 +37,13 @@ class OrdersFragment : Fragment() {
 
     private lateinit var orderViewModel: OrderViewModel
 
+    companion object {
+        private const val REQUEST_CODE_FROM = 1
+
+        @JvmStatic
+        fun newInstance() = OrdersFragment()
+    }
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -42,12 +52,13 @@ class OrdersFragment : Fragment() {
         val v = inflater.inflate(R.layout.fragment_orders, container, false)
         v.btn_scan.setOnClickListener {
             val intent = Intent(activity as MainActivity, ScanningActivity::class.java)
-            startActivity(intent)
+            startActivityForResult(intent, REQUEST_CODE_FROM)
         }
 
         v.img_menu_ic.setOnClickListener {
             (activity as MainView).setNewCurrent(0)
         }
+        v.window_info.alpha = 0.0f
         return v
     }
 
@@ -80,12 +91,9 @@ class OrdersFragment : Fragment() {
             override fun onSwiped(viewHolder: RecyclerView.ViewHolder, direction: Int) {
                 val index = viewHolder.adapterPosition
                 if (viewHolder.itemView.tag == "unchecked") {
-                    //Todo show dialog and add item
-
+                    onUncheckedSwiped(index, orderList[index])
                 } else {
-                    orderList.removeAt(index)
-                    (rv_orders.adapter as OrdersListAdapter).updateData(orderList)
-                    //Todo show dialog
+                    onCheckedSwiped(index, orderList[index])
                 }
             }
         }
@@ -112,6 +120,15 @@ class OrdersFragment : Fragment() {
         })
     }
 
+    private fun onUncheckedSwiped(index: Int, orderSample: OrderSample) {
+
+    }
+
+    private fun onCheckedSwiped(index: Int, orderSample: OrderSample) {
+        orderList.removeAt(index)
+        (rv_orders.adapter as OrdersListAdapter).notifyItemRemoved(index)
+    }
+
     private fun observeLoadingData() {
         orderViewModel.showLoadingLiveData.observe(this, Observer {
             showLoading(it)
@@ -121,6 +138,7 @@ class OrdersFragment : Fragment() {
     private fun observeOrderListData() {
         orderViewModel.orderListLiveData.observe(this, Observer {
             if(it.data!=null){
+                orderList.clear()
                 it.data.forEach {
                     orderList.add(it)
                 }
@@ -132,18 +150,34 @@ class OrdersFragment : Fragment() {
         })
     }
 
-    companion object {
-
-        @JvmStatic
-        fun newInstance() = OrdersFragment()
-    }
-
     fun showLoading(state:Boolean?){
         if(state==true){
             pb_order_list.visibility = View.VISIBLE
         }
         if(state == false){
             pb_order_list.visibility = View.INVISIBLE
+        }
+    }
+
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        if (resultCode == Activity.RESULT_OK) {
+            when (requestCode) {
+                REQUEST_CODE_FROM -> {
+                    val imgUrl = data?.getStringExtra("img_url")
+                    val time = data?.getStringExtra("time")
+                    val name = data?.getStringExtra("name")
+                    val details = data?.getStringExtra("details")
+                    //TODO
+                    Glide.with(this).load(imgUrl).into(img_scanning)
+                    tv_time_scanning.text = time
+                    tv_name_scanning.text = name
+                    tv_event_details_scanning.text = details
+                    window_info.animate().alpha(1.0f).setDuration(500)
+                    window_info.setOnClickListener {
+                        window_info.animate().alpha(0.0f).setDuration(500)
+                    }
+                }
+            }
         }
     }
 }

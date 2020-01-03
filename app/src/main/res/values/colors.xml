@@ -6,6 +6,8 @@
     <color name="colorBackTime">#FFEBEE</color>
     <color name="colorSecondaryText">#5C5C5C</color>
     <color name="colorRedText">#FF6F61</color>
+    <color name="colorUnchecked">#FF897D</color>
+    <color name="redPressed">#FFAEA7</color>
     <color name="colorPrimaryText">#D6000000</color>
     <color name="colorConfirmOrder">#00B212</color>
     <color name="colorConfirmBack">#EBFFEE</color>
@@ -13,5 +15,8 @@
     <color name="black">#000</color>
     <color name="gray">#99FFFFFF</color>
     <color name="colorButtonProfile">#E61D1D1D</color>
+    <color name="colorButtonProfilePressed">#424141</color>
     <color name="centerColorProfile">#252525</color>
+    <color name="colorDetailsText">#CC413F54</color>
+    <color name="gray_disabled_btn">#E0E0E0</color>
 </resources>
