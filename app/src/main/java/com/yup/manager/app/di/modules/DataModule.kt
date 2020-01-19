@@ -20,6 +20,7 @@ import retrofit2.Retrofit
 import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory
 import retrofit2.converter.gson.GsonConverterFactory
 import com.ihsanbal.logging.Level
+import com.yup.manager.data.SessionManager
 import okhttp3.internal.platform.Platform
 import okhttp3.logging.HttpLoggingInterceptor
 
@@ -72,5 +73,9 @@ class DataModule(private val context: Context) {
     @Provides
     @DataScope
     fun provideUserRepository(restApiService: RestApiService):IUserRepository = UserRepositoryImpl(restApiService)
+
+    @Provides
+    @DataScope
+    fun provideSessionManager(context:Context): SessionManager = SessionManager(context)
 
 }

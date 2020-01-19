@@ -15,6 +15,7 @@ import com.yup.manager.R
 import com.yup.manager.domain.utils.getSomeOrders
 import kotlinx.android.synthetic.main.fragment_orders.*
 import android.view.MotionEvent
+import android.widget.CalendarView
 import android.widget.Toast
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
@@ -24,13 +25,24 @@ import com.yup.manager.app.ui.qrScanning.ScanningActivity
 import com.yup.manager.app.ui.ViewModelFactory
 import com.yup.manager.app.ui.main.MainActivity
 import com.yup.manager.app.ui.main.MainView
+import com.yup.manager.data.utils.getCurrentDay
+import com.yup.manager.data.utils.getCurrentMonth
+import com.yup.manager.data.utils.getCurrentYear
+import com.yup.manager.data.utils.getDayOfWeekString
 import com.yup.manager.domain.entities.order.OrderSample
 import kotlinx.android.synthetic.main.fragment_orders.view.*
+import java.util.*
 import javax.inject.Inject
 
 class OrdersFragment : Fragment() {
 
     var orderList = getSomeOrders()
+
+    private val DATE_FROM_ORDER = 1
+
+    private var mYear = getCurrentYear()
+    private var mMonth = getCurrentMonth()
+    private var mDay = getCurrentDay()
 
     @Inject
     lateinit var viewModelFactory: ViewModelFactory
@@ -57,6 +69,9 @@ class OrdersFragment : Fragment() {
 
         v.img_menu_ic.setOnClickListener {
             (activity as MainView).setNewCurrent(0)
+        }
+        v.btn_calendar_orders.setOnClickListener {
+            (activity as MainView).showDialog(DATE_FROM_ORDER)
         }
         v.window_info.alpha = 0.0f
         return v
@@ -179,5 +194,17 @@ class OrdersFragment : Fragment() {
                 }
             }
         }
+    }
+
+    fun setNewDate(year: Int, month: Int, day: Int) {
+        mYear = year
+        mMonth = month
+        mDay = day
+        val calendar = Calendar.getInstance()
+        calendar.time = Date(year, month, day)
+        val dayOfWeek = calendar.get(Calendar.DAY_OF_WEEK)
+        tv_weekday.text = getDayOfWeekString(dayOfWeek)
+        tv_date.text = "$day.$month.$year"
+        //TODO GET ORDERS FOR DATE
     }
 }

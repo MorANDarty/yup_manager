@@ -1,6 +1,7 @@
 package com.yup.manager.app.di.modules
 
 import com.yup.manager.app.di.scopes.AppScope
+import com.yup.manager.app.interactors.LoginInteractor
 import com.yup.manager.app.interactors.OrdersInteractor
 import com.yup.manager.app.interactors.ProfileInteractor
 import com.yup.manager.domain.repositories.IOrderRepository
@@ -20,4 +21,8 @@ class InteractorModule {
     @Provides
     @AppScope
     fun provideProfileInteractor(profileRepo:IUserRepository): ProfileInteractor = ProfileInteractor(profileRepo)
+
+    @Provides
+    @AppScope
+    fun provideLoginInteractor(userRepo:IUserRepository): LoginInteractor = LoginInteractor(userRepo)
 }

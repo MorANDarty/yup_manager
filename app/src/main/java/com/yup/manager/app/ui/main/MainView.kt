@@ -8,4 +8,6 @@ interface MainView : MvpView {
 
     fun setNewCurrent(position:Int)
 
+    fun showDialog(id: Int)
+
 }

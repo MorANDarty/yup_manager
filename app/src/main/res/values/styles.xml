@@ -26,4 +26,10 @@
         <item name="android:fontFamily">@font/roboto_regular</item>
     </style>
 
+    <style name="RedButton">
+        <item name="android:background">@drawable/background_calendar_red</item>
+        <item name="android:textColor">@color/white</item>
+        <item name="android:fontFamily">@font/futura_new_demi</item>
+    </style>
+
 </resources>

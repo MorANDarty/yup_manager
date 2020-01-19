@@ -1,6 +1,7 @@
 package com.yup.manager.data.repositories
 
 import com.yup.manager.data.rest.RestApiService
+import com.yup.manager.domain.entities.user.LoginResp
 import com.yup.manager.domain.entities.user.User
 import com.yup.manager.domain.repositories.IUserRepository
 import io.reactivex.Single
@@ -14,5 +15,13 @@ class UserRepositoryImpl @Inject constructor(private val restApiService: RestApi
 
     override fun getProfile(): Single<User> {
         return  User("Виталий Цаль", "3.7", "1231").toSingle()
+
+        //TODO implement
+    }
+
+    override fun login(login: String, password: String): Single<LoginResp> {
+        return LoginResp("").toSingle()
+
+        //TODO implement
     }
 }
