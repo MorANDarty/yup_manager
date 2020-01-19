@@ -123,4 +123,5 @@ class SessionManager(private var _context: Context) {
         return udata.getString(BUSINESS_PARTNER, "")
     }
 
+
 }
