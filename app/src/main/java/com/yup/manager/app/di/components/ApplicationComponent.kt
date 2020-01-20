@@ -7,6 +7,7 @@ import com.yup.manager.app.di.modules.InteractorModule
 import com.yup.manager.app.di.modules.ViewModelFactoryModule
 import com.yup.manager.app.di.modules.ViewModelModule
 import com.yup.manager.app.di.scopes.AppScope
+import com.yup.manager.app.ui.login.LoginActivity
 import com.yup.manager.app.ui.main.orders.OrdersFragment
 import com.yup.manager.app.ui.main.profile.ProfileFragment
 import com.yup.manager.app.ui.qrScanning.ScanningActivity
@@ -26,6 +27,7 @@ interface ApplicationComponent {
     fun inject(ordersFragment: OrdersFragment)
     fun inject(profileFragment:ProfileFragment)
     fun inject(qrFragment:ScanningActivity)
+    fun inject(loginActivity: LoginActivity)
 
     val context:Context
     /*val userRepo:IUserRepository*/
