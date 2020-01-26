@@ -74,8 +74,4 @@ class DataModule(private val context: Context) {
     @DataScope
     fun provideUserRepository(restApiService: RestApiService):IUserRepository = UserRepositoryImpl(restApiService)
 
-    @Provides
-    @DataScope
-    fun provideSessionManager(context:Context): SessionManager = SessionManager(context)
-
 }
