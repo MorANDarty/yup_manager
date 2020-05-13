@@ -6,10 +6,11 @@ import android.content.SharedPreferences
 import com.yup.manager.app.ui.login.LoginActivity
 import com.yup.manager.app.ui.main.MainActivity
 import java.util.HashMap
+import javax.inject.Inject
 
 //created by Ilmir Shagabiev
 
-class SessionManager(private var _context: Context) {
+class SessionManager @Inject constructor(private var _context: Context) {
 
     private var udata: SharedPreferences
     private var editData: SharedPreferences.Editor
@@ -22,7 +23,6 @@ class SessionManager(private var _context: Context) {
         //File name
         private val PREF_NAME = "manager_data"
         private val PREF_MODE = 0
-        //Status login/not
         private val IS_LOGIN = "isLoggedIn"
         private val PHONE_NUMBER = "phone_number"
         private val BUSINESS_PARTNER = "business_partner"
@@ -43,10 +43,6 @@ class SessionManager(private var _context: Context) {
         editData.commit()
     }
 
-    fun putServiceCode(code: String) {
-        editData.commit()
-    }
-
     fun putBusinessPartner(bp:String?){
         editData.putString(BUSINESS_PARTNER, "Инженер от $bp")
         editData.commit()
@@ -62,7 +58,7 @@ class SessionManager(private var _context: Context) {
 
     fun getLastName() = udata.getString(MANAGER_LNAME, "")
 
-    fun editUser(token: String, name: String, lastName: String, engId: Int) {
+    fun editUser(token: String, name: String, lastName: String) {
         editData.putString(MANAGER_NAME, name)
         editData.putString(MANAGER_LNAME, lastName)
         editData.putString(AUTH_TOKEN, token)
@@ -75,7 +71,6 @@ class SessionManager(private var _context: Context) {
         intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK)
         intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK
         _context.startActivity(intent)
-
     }
 
     fun startLogin() {

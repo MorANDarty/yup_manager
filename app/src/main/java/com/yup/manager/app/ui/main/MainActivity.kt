@@ -5,6 +5,7 @@ import android.app.Dialog
 import android.os.Bundle
 import android.widget.DatePicker
 import androidx.appcompat.app.AppCompatActivity
+import androidx.viewpager2.widget.ViewPager2
 import com.yup.manager.R
 import com.yup.manager.app.ui.main.orders.OrdersFragment
 import com.yup.manager.app.ui.main.profile.ProfileFragment

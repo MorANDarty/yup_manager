@@ -15,8 +15,8 @@ def compileTimeLibs = ext.compileTimeDependencies
 def architectureLibs = ext.architectureDependencies
 
 android {
-    compileSdkVersion 29
-    buildToolsVersion "29.0.2"
+    compileSdkVersion config.compileSdkVersion
+    buildToolsVersion config.buildToolsVersion
     defaultConfig {
         applicationId config.package
         minSdkVersion config.minSdkVersion
