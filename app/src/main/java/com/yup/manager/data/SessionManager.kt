@@ -43,6 +43,11 @@ class SessionManager @Inject constructor(private var _context: Context) {
         editData.commit()
     }
 
+    fun putToken(token:String){
+        editData.putString(AUTH_TOKEN, token)
+        editData.commit()
+    }
+
     fun putBusinessPartner(bp:String?){
         editData.putString(BUSINESS_PARTNER, "Инженер от $bp")
         editData.commit()

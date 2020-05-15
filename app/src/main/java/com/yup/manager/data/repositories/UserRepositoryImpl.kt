@@ -1,6 +1,7 @@
 package com.yup.manager.data.repositories
 
 import com.yup.manager.data.rest.RestApiService
+import com.yup.manager.domain.entities.user.LoginReq
 import com.yup.manager.domain.entities.user.LoginResp
 import com.yup.manager.domain.entities.user.User
 import com.yup.manager.domain.repositories.IUserRepository
@@ -19,9 +20,6 @@ class UserRepositoryImpl @Inject constructor(private val restApiService: RestApi
         //TODO implement
     }
 
-    override fun login(login: String, password: String): Single<LoginResp> {
-        return LoginResp("").toSingle()
-
-        //TODO implement
-    }
+    override fun login(login: String, password: String): Single<LoginResp> =
+        restApiService.signIn(LoginReq(login, password))
 }

@@ -19,31 +19,15 @@ class MainActivity : AppCompatActivity(), MainView {
 
     private val DATE_FROM_ORDER = 1
 
+    var adapter:ViewPagerAdapter? = null
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
-        /*rv_orders_main.layoutManager = LinearLayoutManager(this)
-        rv_orders_main.adapter = OrdersListAdapter(getSomeOrders().toMutableList())
-        val swipeHandler = object : SwipeToDeleteCallback(this) {
-            override fun onSwiped(viewHolder: RecyclerView.ViewHolder, direction: Int) {
-                if (viewHolder.itemView.tag == "unchecked") {
-                    (rv_orders_main.adapter as OrdersListAdapter).addItem(OrderSample("14:20","New customer",
-                        "New activity", "","checked"), viewHolder.adapterPosition)
-                    //Todo show dialog
-                } else {
-                    (rv_orders_main.adapter as OrdersListAdapter).removeAt(viewHolder.adapterPosition)
-                    //Todo show dialog
-                }
-            }
-        }
-
-        val itemTouchHelper = ItemTouchHelper(swipeHandler)
-        itemTouchHelper.attachToRecyclerView(rv_orders_main)*/
-
-        val adapter = ViewPagerAdapter(supportFragmentManager)
-        adapter.addFragment(ProfileFragment.newInstance())
-        adapter.addFragment(OrdersFragment.newInstance())
+        adapter = ViewPagerAdapter(supportFragmentManager)
+        adapter?.addFragment(ProfileFragment.newInstance())
+        adapter?.addFragment(OrdersFragment.newInstance())
 
         view_pager_main.adapter = adapter
         view_pager_main.currentItem = 1
@@ -51,6 +35,12 @@ class MainActivity : AppCompatActivity(), MainView {
 
     override fun setNewCurrent(position: Int) {
         view_pager_main.currentItem = position
+    }
+
+    override fun onResume() {
+        super.onResume()
+        view_pager_main.adapter = adapter
+        view_pager_main.currentItem = 1
     }
 
     override fun onCreateDialog(id: Int): Dialog {

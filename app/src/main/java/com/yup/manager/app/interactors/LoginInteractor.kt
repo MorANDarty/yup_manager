@@ -6,6 +6,6 @@ import io.reactivex.schedulers.Schedulers
 
 class LoginInteractor(private val userRepo:IUserRepository) {
 
-    fun login(login:String, password:String) = userRepo.login(login, password).subscribeOn(Schedulers.io())
+    fun login(login:String, password:String) = userRepo.login(login, password)
 
 }

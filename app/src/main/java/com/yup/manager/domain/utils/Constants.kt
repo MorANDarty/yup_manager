@@ -3,3 +3,5 @@ package com.yup.manager.domain.utils
 
 //created by Ilmir Shagabiev
 
+const val PROFILE_FRAGMENT = "profileFragment"
+

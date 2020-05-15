@@ -5,5 +5,7 @@ import com.yup.manager.domain.entities.order.accessory.Order
 
 
 data class RespOrdersList(
-    @SerializedName("orders") var orders:List<Order>
+
+    @SerializedName("orders") var orders: List<Order>
+
 )

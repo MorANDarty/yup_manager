@@ -68,10 +68,7 @@ class OrdersFragment : Fragment() {
         }
 
         v.img_menu_ic.setOnClickListener {
-            (activity as MainView).setNewCurrent(0)
-        }
-        v.btn_calendar_orders.setOnClickListener {
-            (activity as MainView).showDialog(DATE_FROM_ORDER)
+            (activity as MainView).setNewCurrent(1)
         }
         v.window_info.alpha = 0.0f
         return v
@@ -100,48 +97,7 @@ class OrdersFragment : Fragment() {
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
-
         rv_orders.adapter = OrdersListAdapter(getSomeOrders().toMutableList())
-        val swipeHandler = object : SwipeToDeleteCallback(context!!) {
-            override fun onSwiped(viewHolder: RecyclerView.ViewHolder, direction: Int) {
-                val index = viewHolder.adapterPosition
-                if (viewHolder.itemView.tag == "unchecked") {
-                    onUncheckedSwiped(index, orderList[index])
-                } else {
-                    onCheckedSwiped(index, orderList[index])
-                }
-            }
-        }
-
-        val itemTouchHelper = ItemTouchHelper(swipeHandler)
-        itemTouchHelper.attachToRecyclerView(rv_orders)
-
-        rv_orders.addOnItemTouchListener(object : RecyclerView.OnItemTouchListener {
-            override fun onInterceptTouchEvent(rv: RecyclerView, e: MotionEvent): Boolean {
-                val action = e.action
-                when (action) {
-                    MotionEvent.ACTION_MOVE -> rv.parent.requestDisallowInterceptTouchEvent(true)
-                }
-                return false
-            }
-
-            override fun onTouchEvent(rv: RecyclerView, e: MotionEvent) {
-
-            }
-
-            override fun onRequestDisallowInterceptTouchEvent(disallowIntercept: Boolean) {
-
-            }
-        })
-    }
-
-    private fun onUncheckedSwiped(index: Int, orderSample: OrderSample) {
-
-    }
-
-    private fun onCheckedSwiped(index: Int, orderSample: OrderSample) {
-        orderList.removeAt(index)
-        (rv_orders.adapter as OrdersListAdapter).notifyItemRemoved(index)
     }
 
     private fun observeLoadingData() {
@@ -187,9 +143,9 @@ class OrdersFragment : Fragment() {
                     tv_time_scanning.text = time
                     tv_name_scanning.text = name
                     tv_event_details_scanning.text = details
-                    window_info.animate().alpha(1.0f).setDuration(500)
+                    window_info.animate().alpha(1.0f).setDuration(300)
                     window_info.setOnClickListener {
-                        window_info.animate().alpha(0.0f).setDuration(500)
+                        window_info.animate().alpha(0.0f).setDuration(300)
                     }
                 }
             }
