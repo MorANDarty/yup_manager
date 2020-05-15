@@ -7,11 +7,12 @@ import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.yup.manager.R
-import com.yup.manager.domain.entities.order.OrderSample
 import com.yup.manager.domain.entities.order.accessory.Order
+import com.yup.manager.domain.utils.STATE_APPROVES
+import com.yup.manager.domain.utils.STATE_COMPLETED
+import com.yup.manager.domain.utils.STATE_EXPECTATION
+import com.yup.manager.domain.utils.STATE_REJECTED
 import kotlinx.android.synthetic.main.item_order.view.*
-import timber.log.Timber
-import java.util.*
 
 
 //created by Ilmir Shagabiev
@@ -45,26 +46,33 @@ class OrdersListAdapter(private var data: MutableList<Order>) :
 
     inner class OrderViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         fun bind(order: Order) {
-            if (order.state != "canceled") {
-                itemView.tv_customer_name.text = order.userName
-                itemView.tv_order_name_item.text = order.name
-                itemView.tv_time_item.text = order.time
-                Glide.with(itemView).load(order.img).into(itemView.img_avatar_item)
-                if (order.state == "unchecked") {
+            itemView.tv_customer_name.text = order.userName
+            itemView.tv_order_name_item.text = order.name
+            itemView.tv_time_item.text = order.time
+            Glide.with(itemView).load(order.userAvatar).into(itemView.img_avatar_item)
+            when (order.state) {
+                STATE_REJECTED -> {
                     itemView.ll_info.background =
                         itemView.resources.getDrawable(R.drawable.outline_order_unchecked)
                     itemView.ll_info.clipToOutline = true
-                    itemView.tag = "unchecked"
                     itemView.tv_customer_name.setTextColor(itemView.resources.getColor(R.color.white))
                     itemView.tv_order_name_item.setTextColor(itemView.resources.getColor(R.color.white))
-                } else {
+                }
+
+                STATE_EXPECTATION ->{
                     itemView.ll_info.background =
-                        itemView.resources.getDrawable(R.drawable.outline_order_checked)
+                    itemView.resources.getDrawable(R.drawable.outline_order_checked)
                     itemView.ll_info.clipToOutline = true
-                    itemView.tag = "checked"
+                }
+
+                STATE_APPROVES->{
+
+                }
+
+                STATE_COMPLETED->{
+
                 }
             }
-
         }
     }
 }

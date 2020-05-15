@@ -19,5 +19,6 @@ data class Order(
     @SerializedName("onPlaceWay") var onPlaceWay: String,
     @SerializedName("user_name") var userName: String,
     @SerializedName("user_surname") var userSurname: String,
-    @SerializedName("user_phone") var userPhone: String
+    @SerializedName("user_phone") var userPhone: String,
+    @SerializedName("user_avatar") var userAvatar:String
 )
