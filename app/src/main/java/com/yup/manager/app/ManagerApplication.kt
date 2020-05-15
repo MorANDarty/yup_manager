@@ -1,6 +1,7 @@
 package com.yup.manager.app
 
 import android.app.Application
+import android.content.Context
 import androidx.annotation.NonNull
 import com.yup.manager.app.di.components.ApplicationComponent
 import com.yup.manager.app.di.components.DaggerApplicationComponent
@@ -9,6 +10,7 @@ import com.yup.manager.app.di.components.DataComponent
 import com.yup.manager.app.di.modules.ApplicationModule
 import com.yup.manager.app.di.modules.DataModule
 import com.yup.manager.app.di.modules.InteractorModule
+import timber.log.Timber
 
 //created by Ilmir Shagabiev
 
@@ -30,6 +32,11 @@ class ManagerApplication : Application() {
             .interactorModule(InteractorModule())
             .dataComponent(initDataComponent())
             .build()
+    }
+
+    override fun attachBaseContext(base: Context?) {
+        super.attachBaseContext(base)
+        Timber.plant(Timber.DebugTree())
     }
 
     private fun initDataComponent(): DataComponent = DaggerDataComponent.builder()

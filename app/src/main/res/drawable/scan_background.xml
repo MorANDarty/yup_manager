@@ -3,7 +3,7 @@
 
     <item android:state_pressed="true">
         <shape android:shape="rectangle">
-            <corners android:topRightRadius="15dp" />
+            <corners android:topLeftRadius="15dp" />
             <solid android:color="@color/redPressed" />
         </shape>
     </item>
@@ -12,7 +12,7 @@
         <shape>
             <gradient android:angle="270" android:endColor="@color/colorRedText" android:startColor="@color/colorRedText" />
 
-            <corners android:topRightRadius="15dp" />
+            <corners android:topLeftRadius="15dp" />
 
             <padding android:bottom="24dp" android:left="24dp" android:right="24dp" android:top="24dp" />
         </shape>

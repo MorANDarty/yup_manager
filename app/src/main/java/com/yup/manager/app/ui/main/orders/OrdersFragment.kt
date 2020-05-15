@@ -30,19 +30,12 @@ import com.yup.manager.data.utils.getCurrentMonth
 import com.yup.manager.data.utils.getCurrentYear
 import com.yup.manager.data.utils.getDayOfWeekString
 import com.yup.manager.domain.entities.order.OrderSample
+import com.yup.manager.domain.entities.order.accessory.Order
 import kotlinx.android.synthetic.main.fragment_orders.view.*
 import java.util.*
 import javax.inject.Inject
 
 class OrdersFragment : Fragment() {
-
-    var orderList = getSomeOrders()
-
-    private val DATE_FROM_ORDER = 1
-
-    private var mYear = getCurrentYear()
-    private var mMonth = getCurrentMonth()
-    private var mDay = getCurrentDay()
 
     @Inject
     lateinit var viewModelFactory: ViewModelFactory
@@ -68,36 +61,20 @@ class OrdersFragment : Fragment() {
         }
 
         v.img_menu_ic.setOnClickListener {
-            (activity as MainView).setNewCurrent(1)
+            (activity as MainView).setNewCurrent(0)
         }
         v.window_info.alpha = 0.0f
         return v
     }
 
-
-    override fun onAttach(context: Context) {
-        super.onAttach(context)
-        ManagerApplication().getAppComponent()?.inject(this)
-    }
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
         (activity?.application as ManagerApplication).getAppComponent()?.inject(this)
         orderViewModel = ViewModelProviders.of(this, viewModelFactory)
             .get(OrderViewModel::class.java)
         observeLoadingData()
+        orderViewModel.getOrders()
         observeOrderListData()
-
-    }
-
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
-        orderViewModel.getMockOrders()
-        rv_orders.layoutManager = LinearLayoutManager(context)
-    }
-
-    override fun onActivityCreated(savedInstanceState: Bundle?) {
-        super.onActivityCreated(savedInstanceState)
-        rv_orders.adapter = OrdersListAdapter(getSomeOrders().toMutableList())
     }
 
     private fun observeLoadingData() {
@@ -107,13 +84,11 @@ class OrdersFragment : Fragment() {
     }
 
     private fun observeOrderListData() {
+        orderViewModel.orderListLiveData.removeObservers(viewLifecycleOwner)
         orderViewModel.orderListLiveData.observe(this, Observer {
             if(it.data!=null){
-                orderList.clear()
-                it.data.forEach {
-                    orderList.add(it)
-                }
-                rv_orders.adapter = OrdersListAdapter(orderList)
+                rv_orders.layoutManager = LinearLayoutManager(context)
+                rv_orders.adapter = OrdersListAdapter(it.data as MutableList<Order>)
             }
             else if(it.error!=null){
                 Toast.makeText(context, it.error.message, Toast.LENGTH_LONG).show()
@@ -152,15 +127,4 @@ class OrdersFragment : Fragment() {
         }
     }
 
-    fun setNewDate(year: Int, month: Int, day: Int) {
-        mYear = year
-        mMonth = month
-        mDay = day
-        val calendar = Calendar.getInstance()
-        calendar.time = Date(year, month, day)
-        val dayOfWeek = calendar.get(Calendar.DAY_OF_WEEK)
-        tv_weekday.text = getDayOfWeekString(dayOfWeek)
-        tv_date.text = "$day.$month.$year"
-        //TODO GET ORDERS FOR DATE
-    }
 }

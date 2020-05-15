@@ -4,7 +4,7 @@ package com.yup.manager.data.utils
 
 class UrlProvider {
     fun getDevServer(): String {
-        return  "https://yup.mobile.api.com"
+        return  "http://ec2-18-217-215-242.us-east-2.compute.amazonaws.com:3000/"
     }
 
     fun getProductionServer():String{
