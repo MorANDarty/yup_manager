@@ -18,13 +18,5 @@ class ViewPagerAdapter(private val fragmentManager: FragmentManager) : FragmentS
 
     fun addFragment(fragment: Fragment) = fragmentList.add(fragment)
 
-    fun showOrdersList(){
-        fragmentManager.findFragmentById(R.id.view_pager_main)?.let {
-            fragmentManager.beginTransaction()
-                .hide(it)
-                .show(fragmentList.last())
-                .commitAllowingStateLoss()
-        }
-    }
 
 }

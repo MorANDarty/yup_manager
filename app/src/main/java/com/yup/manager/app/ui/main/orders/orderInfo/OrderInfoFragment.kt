@@ -12,6 +12,8 @@ import com.yup.manager.R
 import com.yup.manager.app.ManagerApplication
 import com.yup.manager.app.ui.ViewModelFactory
 import com.yup.manager.app.ui.base.BaseFragment
+import com.yup.manager.app.ui.main.MainView
+import com.yup.manager.data.utils.getDateAndTimeString
 import com.yup.manager.domain.utils.STATE_APPROVED
 import com.yup.manager.domain.utils.STATE_COMPLETED
 import com.yup.manager.domain.utils.STATE_EXPECTATION
@@ -49,7 +51,7 @@ class OrderInfoFragment : BaseFragment() {
         tv_name_and_surname_user.text = arguments?.getString("user_name_and_surname")
         tv_phone_user.text = arguments?.getString("user_phone")
         tv_order_name.text = arguments?.getString("order_name")
-        tv_order_time.text = arguments?.getString("order_time")
+        tv_order_time.text = arguments?.getString("order_time")?.let { getDateAndTimeString(it) }
         tv_order_cost.text = arguments?.getString("order_cost")
         tv_order_participants.text = arguments?.getString("order_participants")
         tv_comment_order.text = arguments?.getString("order_comment")
@@ -61,7 +63,7 @@ class OrderInfoFragment : BaseFragment() {
         }
 
         btn_back_order_info.setOnClickListener {
-            activity?.onBackPressed()
+            (activity as MainView).onBackFromOrderInfo()
         }
     }
 

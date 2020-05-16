@@ -1,38 +1,26 @@
 package com.yup.manager.app.ui.main.orders
 
 import android.app.Activity
-import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.fragment.app.Fragment
-import androidx.recyclerview.widget.ItemTouchHelper
-import androidx.recyclerview.widget.LinearLayoutManager
-import androidx.recyclerview.widget.RecyclerView
-import com.yup.manager.R
-import com.yup.manager.domain.utils.getSomeOrders
-import kotlinx.android.synthetic.main.fragment_orders.*
-import android.view.MotionEvent
-import android.widget.CalendarView
 import android.widget.Toast
+import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
+import androidx.recyclerview.widget.LinearLayoutManager
 import com.bumptech.glide.Glide
+import com.yup.manager.R
 import com.yup.manager.app.ManagerApplication
-import com.yup.manager.app.ui.qrScanning.ScanningActivity
 import com.yup.manager.app.ui.ViewModelFactory
 import com.yup.manager.app.ui.main.MainActivity
 import com.yup.manager.app.ui.main.MainView
-import com.yup.manager.data.utils.getCurrentDay
-import com.yup.manager.data.utils.getCurrentMonth
-import com.yup.manager.data.utils.getCurrentYear
-import com.yup.manager.data.utils.getDayOfWeekString
-import com.yup.manager.domain.entities.order.OrderSample
+import com.yup.manager.app.ui.qrScanning.ScanningActivity
 import com.yup.manager.domain.entities.order.accessory.Order
+import kotlinx.android.synthetic.main.fragment_orders.*
 import kotlinx.android.synthetic.main.fragment_orders.view.*
-import java.util.*
 import javax.inject.Inject
 
 class OrdersFragment : Fragment(), OrdersCallback {
@@ -61,7 +49,7 @@ class OrdersFragment : Fragment(), OrdersCallback {
         }
 
         v.img_menu_ic.setOnClickListener {
-            (activity as MainView).setNewCurrent(0)
+            (activity as MainView).showProfile()
         }
         v.window_info.alpha = 0.0f
         return v
@@ -77,6 +65,11 @@ class OrdersFragment : Fragment(), OrdersCallback {
         observeOrderListData()
     }
 
+    fun updateOrders() {
+        orderViewModel.getOrders()
+        observeOrderListData()
+    }
+
     private fun observeLoadingData() {
         orderViewModel.showLoadingLiveData.observe(this, Observer {
             showLoading(it)
@@ -86,21 +79,20 @@ class OrdersFragment : Fragment(), OrdersCallback {
     private fun observeOrderListData() {
         orderViewModel.orderListLiveData.removeObservers(viewLifecycleOwner)
         orderViewModel.orderListLiveData.observe(this, Observer {
-            if(it.data!=null){
+            if (it.data != null) {
                 rv_orders.layoutManager = LinearLayoutManager(context)
                 rv_orders.adapter = OrdersListAdapter(it.data as MutableList<Order>, this)
-            }
-            else if(it.error!=null){
+            } else if (it.error != null) {
                 Toast.makeText(context, it.error.message, Toast.LENGTH_LONG).show()
             }
         })
     }
 
-    fun showLoading(state:Boolean?){
-        if(state==true){
+    fun showLoading(state: Boolean?) {
+        if (state == true) {
             pb_order_list.visibility = View.VISIBLE
         }
-        if(state == false){
+        if (state == false) {
             pb_order_list.visibility = View.INVISIBLE
         }
     }
@@ -128,7 +120,18 @@ class OrdersFragment : Fragment(), OrdersCallback {
     }
 
     override fun onCallback(order: Order) {
-
+        val bundle = Bundle()
+        bundle.putString("order_id", order.id)
+        bundle.putString("order_name", order.name)
+        bundle.putString("user_name_and_surname", order.userName + " " + order.userSurname)
+        bundle.putString("user_phone", order.userPhone)
+        bundle.putString("user_avatar", order.userAvatar)
+        bundle.putString("order_time", order.time)
+        bundle.putString("order_cost", order.cost)
+        bundle.putString("order_participants", order.maxParticipants.toString() + " человек")
+        bundle.putString("order_comment", order.comment)
+        bundle.putString("order_state", order.state)
+        (activity as MainView).showOrderInfo(bundle)
     }
 
 }

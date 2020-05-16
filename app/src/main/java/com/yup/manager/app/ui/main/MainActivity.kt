@@ -1,45 +1,83 @@
 package com.yup.manager.app.ui.main
 
-import android.app.DatePickerDialog
-import android.app.Dialog
 import android.os.Bundle
-import android.widget.DatePicker
 import androidx.appcompat.app.AppCompatActivity
 import com.yup.manager.R
 import com.yup.manager.app.ui.main.orders.OrdersFragment
+import com.yup.manager.app.ui.main.orders.orderInfo.OrderInfoFragment
 import com.yup.manager.app.ui.main.profile.ProfileFragment
-import com.yup.manager.data.utils.getCurrentDay
-import com.yup.manager.data.utils.getCurrentMonth
-import com.yup.manager.data.utils.getCurrentYear
-import kotlinx.android.synthetic.main.activity_main.*
-import timber.log.Timber
+import com.yup.manager.domain.utils.ORDER_INFO_FRAGMENT
+import com.yup.manager.domain.utils.ORDER_LIST_FRAGMENT
+import com.yup.manager.domain.utils.PROFILE_FRAGMENT
 
 class MainActivity : AppCompatActivity(), MainView {
-
-    private val DATE_FROM_ORDER = 1
-
-    var adapter: ViewPagerAdapter? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
-        adapter = ViewPagerAdapter(supportFragmentManager)
-        adapter?.addFragment(ProfileFragment.newInstance())
-        adapter?.addFragment(OrdersFragment.newInstance())
-
-        view_pager_main.adapter = adapter
-        view_pager_main.currentItem = 1
+        showOrdersList()
     }
 
-    override fun setNewCurrent(position: Int) {
-        view_pager_main.currentItem = position
+    override fun showOrderInfo(bundle: Bundle) {
+        val fragment = OrderInfoFragment()
+        fragment.arguments = bundle
+
+        supportFragmentManager.findFragmentById(R.id.container_main)?.let {
+            supportFragmentManager
+                .beginTransaction()
+                .setCustomAnimations(
+                    R.anim.slide_in_right,
+                    R.anim.slide_out_left,
+                    R.anim.slide_in_left,
+                    R.anim.slide_out_right
+                )
+                .hide(it)
+                .add(R.id.container_main, fragment)
+                .addToBackStack(ORDER_INFO_FRAGMENT)
+                .commitAllowingStateLoss()
+        }
     }
 
-    override fun onResume() {
-        super.onResume()
-        view_pager_main.adapter = adapter
-        view_pager_main.currentItem = 1
+    override fun showOrdersList() {
+        supportFragmentManager
+            .beginTransaction()
+            .setCustomAnimations(
+                R.anim.slide_in_right,
+                R.anim.slide_out_left,
+                R.anim.slide_in_left,
+                R.anim.slide_out_right
+            )
+            .add(R.id.container_main, OrdersFragment())
+            .addToBackStack(ORDER_LIST_FRAGMENT)
+            .commitAllowingStateLoss()
+    }
+
+
+    override fun showProfile() {
+        supportFragmentManager.findFragmentById(R.id.container_main)?.let {
+            supportFragmentManager
+                .beginTransaction()
+                .setCustomAnimations(
+                    R.anim.slide_in_right,
+                    R.anim.slide_out_left,
+                    R.anim.slide_in_left,
+                    R.anim.slide_out_right
+                )
+                .hide(it)
+                .add(R.id.container_main, ProfileFragment())
+                .addToBackStack(PROFILE_FRAGMENT)
+                .commitAllowingStateLoss()
+        }
+    }
+
+    override fun onBackFromOrderInfo() {
+        supportFragmentManager.popBackStack()
+
+        val fragment = supportFragmentManager.findFragmentById(R.id.container_main)
+        if (fragment is OrdersFragment) {
+            fragment.updateOrders()
+        }
     }
 
 }
