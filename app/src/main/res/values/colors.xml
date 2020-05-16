@@ -21,4 +21,5 @@
     <color name="gray_disabled_btn">#E0E0E0</color>
     <color name="expectation">#F2DA00</color>
     <color name="approved">#77E582</color>
+    <color name="dividerColor">#E0DEDE</color>
 </resources>

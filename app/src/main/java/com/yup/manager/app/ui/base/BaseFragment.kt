@@ -1,6 +1,7 @@
 package com.yup.manager.app.ui.base
 
 import android.content.Context
+import android.widget.Toast
 import androidx.fragment.app.Fragment
 import com.google.android.material.snackbar.Snackbar
 import com.yup.manager.app.ui.main.MainActivity
@@ -24,5 +25,9 @@ open class BaseFragment : Fragment() {
                 Snackbar.LENGTH_SHORT
             ).show()
         }
+    }
+
+    fun toast(msg:String){
+        Toast.makeText(context, msg, Toast.LENGTH_SHORT).show()
     }
 }

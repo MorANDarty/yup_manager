@@ -3,6 +3,7 @@ package com.yup.manager.app.di.modules
 import androidx.lifecycle.ViewModel
 import com.yup.manager.app.ui.login.LoginViewModel
 import com.yup.manager.app.ui.main.orders.OrderViewModel
+import com.yup.manager.app.ui.main.orders.orderInfo.OrderInfoViewModel
 import com.yup.manager.app.ui.main.profile.ProfileViewModel
 import com.yup.manager.app.ui.qrScanning.QrScanningViewModel
 import dagger.Binds
@@ -35,6 +36,11 @@ abstract class ViewModelModule {
     @IntoMap
     @ViewModelKey(LoginViewModel::class)
     abstract fun bindLoginViewModel(loginViewModel: LoginViewModel): ViewModel
+
+    @Binds
+    @IntoMap
+    @ViewModelKey(OrderInfoViewModel::class)
+    abstract fun bindOrderInfoViewModel(orderInfoViewModel: OrderInfoViewModel): ViewModel
 }
 
 @Target(

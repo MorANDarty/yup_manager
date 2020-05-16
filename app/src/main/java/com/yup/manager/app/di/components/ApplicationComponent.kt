@@ -9,6 +9,7 @@ import com.yup.manager.app.di.modules.ViewModelModule
 import com.yup.manager.app.di.scopes.AppScope
 import com.yup.manager.app.ui.login.LoginActivity
 import com.yup.manager.app.ui.main.orders.OrdersFragment
+import com.yup.manager.app.ui.main.orders.orderInfo.OrderInfoFragment
 import com.yup.manager.app.ui.main.profile.ProfileFragment
 import com.yup.manager.app.ui.qrScanning.ScanningActivity
 import com.yup.manager.data.SessionManager
@@ -29,6 +30,7 @@ interface ApplicationComponent {
     fun inject(profileFragment:ProfileFragment)
     fun inject(qrFragment:ScanningActivity)
     fun inject(loginActivity: LoginActivity)
+    fun inject(orderInfoFragment: OrderInfoFragment)
 
     val context:Context
     val sm:SessionManager

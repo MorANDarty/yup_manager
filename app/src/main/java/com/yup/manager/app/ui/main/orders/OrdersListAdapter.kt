@@ -8,7 +8,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.yup.manager.R
 import com.yup.manager.domain.entities.order.accessory.Order
-import com.yup.manager.domain.utils.STATE_APPROVES
+import com.yup.manager.domain.utils.STATE_APPROVED
 import com.yup.manager.domain.utils.STATE_COMPLETED
 import com.yup.manager.domain.utils.STATE_EXPECTATION
 import com.yup.manager.domain.utils.STATE_REJECTED
@@ -17,7 +17,7 @@ import kotlinx.android.synthetic.main.item_order.view.*
 
 //created by Ilmir Shagabiev
 
-class OrdersListAdapter(private var data: MutableList<Order>) :
+class OrdersListAdapter(private var data: MutableList<Order>, private val callback:OrdersCallback) :
     RecyclerView.Adapter<OrdersListAdapter.OrderViewHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): OrderViewHolder {
@@ -50,6 +50,11 @@ class OrdersListAdapter(private var data: MutableList<Order>) :
             itemView.tv_order_name_item.text = order.name
             itemView.tv_time_item.text = order.time
             Glide.with(itemView).load(order.userAvatar).into(itemView.img_avatar_item)
+
+            itemView.setOnClickListener {
+                callback.onCallback(order)
+            }
+
             when (order.state) {
                 STATE_REJECTED -> {
                     itemView.ll_info.background =
@@ -65,7 +70,7 @@ class OrdersListAdapter(private var data: MutableList<Order>) :
                     itemView.ll_info.clipToOutline = true
                 }
 
-                STATE_APPROVES->{
+                STATE_APPROVED->{
                     itemView.ll_info.background =
                         itemView.resources.getDrawable(R.drawable.outline_order_approved)
                     itemView.ll_info.clipToOutline = true

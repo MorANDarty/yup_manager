@@ -35,7 +35,7 @@ import kotlinx.android.synthetic.main.fragment_orders.view.*
 import java.util.*
 import javax.inject.Inject
 
-class OrdersFragment : Fragment() {
+class OrdersFragment : Fragment(), OrdersCallback {
 
     @Inject
     lateinit var viewModelFactory: ViewModelFactory
@@ -88,7 +88,7 @@ class OrdersFragment : Fragment() {
         orderViewModel.orderListLiveData.observe(this, Observer {
             if(it.data!=null){
                 rv_orders.layoutManager = LinearLayoutManager(context)
-                rv_orders.adapter = OrdersListAdapter(it.data as MutableList<Order>)
+                rv_orders.adapter = OrdersListAdapter(it.data as MutableList<Order>, this)
             }
             else if(it.error!=null){
                 Toast.makeText(context, it.error.message, Toast.LENGTH_LONG).show()
@@ -125,6 +125,10 @@ class OrdersFragment : Fragment() {
                 }
             }
         }
+    }
+
+    override fun onCallback(order: Order) {
+
     }
 
 }
