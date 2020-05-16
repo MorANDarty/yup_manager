@@ -12,6 +12,7 @@ import com.yup.manager.app.ManagerApplication
 import com.yup.manager.app.ui.ViewModelFactory
 import com.yup.manager.app.ui.main.MainActivity
 import kotlinx.android.synthetic.main.activity_login.*
+import retrofit2.HttpException
 import javax.inject.Inject
 
 class LoginActivity : AppCompatActivity() {
@@ -55,8 +56,12 @@ class LoginActivity : AppCompatActivity() {
             if (it.data == true) {
                 startMain()
             }
-            if (it.error != null) {
-                Toast.makeText(this, it.error.message, Toast.LENGTH_SHORT).show()
+            if(it.error !=null){
+                if(it.error is HttpException){
+                    Toast.makeText(this, it.error.response().errorBody()?.string(), Toast.LENGTH_SHORT).show()
+                }else{
+                    Toast.makeText(this, it.error.message, Toast.LENGTH_SHORT).show()
+                }
             }
         })
     }
@@ -64,6 +69,7 @@ class LoginActivity : AppCompatActivity() {
     private fun startMain() {
         val intent = Intent(this, MainActivity::class.java)
         startActivity(intent)
+        finish()
     }
 
     private fun startPb() {

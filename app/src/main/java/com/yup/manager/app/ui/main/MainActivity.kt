@@ -53,7 +53,6 @@ class MainActivity : AppCompatActivity(), MainView {
             .commitAllowingStateLoss()
     }
 
-
     override fun showProfile() {
         supportFragmentManager.findFragmentById(R.id.container_main)?.let {
             supportFragmentManager
@@ -77,6 +76,14 @@ class MainActivity : AppCompatActivity(), MainView {
         val fragment = supportFragmentManager.findFragmentById(R.id.container_main)
         if (fragment is OrdersFragment) {
             fragment.updateOrders()
+        }
+    }
+
+    override fun onBackPressed() {
+        if(supportFragmentManager.findFragmentById(R.id.container_main) is OrdersFragment){
+            System.exit(0)
+        }else{
+            super.onBackPressed()
         }
     }
 

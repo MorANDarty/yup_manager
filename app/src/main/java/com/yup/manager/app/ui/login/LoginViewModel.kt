@@ -25,7 +25,7 @@ class LoginViewModel @Inject constructor(
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(
                     {
-                        sm.putToken(it.token)
+                        sm.createSession(null, null, null, it.token)
                         loginLiveData.value = Response(true, null)
                         loginLiveData.value = Response(null, null)
                     },
