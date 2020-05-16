@@ -53,7 +53,7 @@ class OrdersListAdapter(private var data: MutableList<Order>) :
             when (order.state) {
                 STATE_REJECTED -> {
                     itemView.ll_info.background =
-                        itemView.resources.getDrawable(R.drawable.outline_order_unchecked)
+                        itemView.resources.getDrawable(R.drawable.outline_order_rejected)
                     itemView.ll_info.clipToOutline = true
                     itemView.tv_customer_name.setTextColor(itemView.resources.getColor(R.color.white))
                     itemView.tv_order_name_item.setTextColor(itemView.resources.getColor(R.color.white))
@@ -61,16 +61,22 @@ class OrdersListAdapter(private var data: MutableList<Order>) :
 
                 STATE_EXPECTATION ->{
                     itemView.ll_info.background =
-                    itemView.resources.getDrawable(R.drawable.outline_order_checked)
+                    itemView.resources.getDrawable(R.drawable.outline_order_expectation)
                     itemView.ll_info.clipToOutline = true
                 }
 
                 STATE_APPROVES->{
-
+                    itemView.ll_info.background =
+                        itemView.resources.getDrawable(R.drawable.outline_order_approved)
+                    itemView.ll_info.clipToOutline = true
                 }
 
                 STATE_COMPLETED->{
-
+                    itemView.ll_info.background =
+                        itemView.resources.getDrawable(R.drawable.outline_order_completed)
+                    itemView.ll_info.clipToOutline = true
+                    itemView.tv_customer_name.setTextColor(itemView.resources.getColor(R.color.white))
+                    itemView.tv_order_name_item.setTextColor(itemView.resources.getColor(R.color.white))
                 }
             }
         }
