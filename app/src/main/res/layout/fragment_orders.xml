@@ -32,18 +32,17 @@
             android:layout_height="wrap_content"
             android:layout_marginLeft="20dp"
             android:layout_marginTop="30dp"
-            android:text="Пнд"
+            android:text="Заявки"
             android:textColor="@color/black"
             android:textSize="@dimen/weekDayDm"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            android:fontFamily="@font/sanspro_regular"/>
+            android:fontFamily="@font/futura_new_medium"/>
 
     <TextView
             android:id="@+id/tv_comma"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text=", "
             android:textColor="@color/black"
             android:textSize="@dimen/weekDayDm"
             app:layout_constraintLeft_toRightOf="@+id/tv_weekday"
@@ -53,7 +52,6 @@
     <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="27.01.2020"
             android:textColor="@color/black"
             android:textSize="@dimen/weekDayDm"
             android:id="@+id/tv_date"

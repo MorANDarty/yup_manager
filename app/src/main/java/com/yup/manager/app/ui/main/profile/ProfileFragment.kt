@@ -44,10 +44,6 @@ class ProfileFragment : Fragment() {
         btn_exit.setOnClickListener {
 
         }
-
-        btn_help.setOnClickListener {  }
-
-        btn_make_promocode.setOnClickListener {  }
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -67,9 +63,7 @@ class ProfileFragment : Fragment() {
         profileViewModel.profileLiveData.observe(this, Observer {
             if (it.data!=null){
                 val profile = it.data
-                tv_rating.text = profile.rating
                 tv_name.text = profile.name
-                tv_likes.text = profile.likes
             }
             if(it.error!=null){
                 val error = it.error

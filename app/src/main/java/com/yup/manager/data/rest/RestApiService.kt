@@ -12,25 +12,25 @@ import retrofit2.http.*
 
 interface RestApiService {
 
-    @POST("/company/manager/login")
+    @POST("/manager/login")
     fun signIn(@Body signInForm: LoginReq): Single<LoginResp>
 
-    @GET("/company/manager/orders")
+    @GET("/manager/order")
     fun getOrders(@Header("Authorization") token: String): Single<RespOrdersList>
 
-    @GET("/company/manager/orders/{id}/reject")
+    @GET("/manager/orders/{id}/reject")
     fun rejectOrder(
         @Header("Authorization") token: String,
         @Path("id") orderId: String
     ): Single<RespOrder>
 
-    @GET("/company/manager/orders/{id}/approve")
+    @GET("/manager/orders/{id}/approve")
     fun approveOrder(
         @Header("Authorization") token: String,
         @Path("id") orderId: String
     ): Single<RespOrder>
 
-    @GET("/company/manager/orders/{id}/complete")
+    @GET("/manager/orders/{id}/complete")
     fun completeOrder(
         @Header("Authorization") token: String,
         @Path("id") orderId: String

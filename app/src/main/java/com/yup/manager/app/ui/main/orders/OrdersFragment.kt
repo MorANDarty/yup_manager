@@ -80,8 +80,13 @@ class OrdersFragment : Fragment(), OrdersCallback {
         orderViewModel.orderListLiveData.removeObservers(viewLifecycleOwner)
         orderViewModel.orderListLiveData.observe(this, Observer {
             if (it.data != null) {
-                rv_orders.layoutManager = LinearLayoutManager(context)
-                rv_orders.adapter = OrdersListAdapter(it.data as MutableList<Order>, this)
+                val orders = it.data
+                if(orders.isNotEmpty()) {
+                    rv_orders.layoutManager = LinearLayoutManager(context)
+                    rv_orders.adapter = OrdersListAdapter(it.data as MutableList<Order>, this)
+                }else{
+                    Toast.makeText(context, "Заявок нет", Toast.LENGTH_SHORT).show()
+                }
             } else if (it.error != null) {
                 Toast.makeText(context, it.error.message, Toast.LENGTH_LONG).show()
             }
@@ -126,11 +131,11 @@ class OrdersFragment : Fragment(), OrdersCallback {
         bundle.putString("user_name_and_surname", order.userName + " " + order.userSurname)
         bundle.putString("user_phone", order.userPhone)
         bundle.putString("user_avatar", order.userAvatar)
-        bundle.putString("order_time", order.time)
+        bundle.putString("order_time", order.time.from)
         bundle.putString("order_cost", order.cost)
         bundle.putString("order_participants", order.maxParticipants.toString() + " человек")
         bundle.putString("order_comment", order.comment)
-        bundle.putString("order_state", order.state)
+        bundle.putString("order_state", order.state.first())
         (activity as MainView).showOrderInfo(bundle)
     }
 

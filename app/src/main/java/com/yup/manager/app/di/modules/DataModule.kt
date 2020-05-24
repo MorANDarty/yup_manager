@@ -43,7 +43,6 @@ class DataModule(private val context: Context) {
     @Provides
     @DataScope
     fun providesLoggingInterceptor(): LoggingInterceptor = LoggingInterceptor.Builder()
-        .loggable(BuildConfig.DEBUG)
         .setLevel(Level.BASIC)
         .log(Platform.INFO)
         .request("REQUEST")
@@ -54,7 +53,6 @@ class DataModule(private val context: Context) {
     @DataScope
     fun provideOkHttpClient(loggingInterceptor: LoggingInterceptor): OkHttpClient =
         OkHttpClient.Builder()
-            .addInterceptor(HttpLoggingInterceptor())
             .addInterceptor(loggingInterceptor)
             .build()
 

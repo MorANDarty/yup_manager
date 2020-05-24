@@ -11,6 +11,7 @@ import com.yup.manager.R
 import com.yup.manager.app.ManagerApplication
 import com.yup.manager.app.ui.ViewModelFactory
 import com.yup.manager.app.ui.main.MainActivity
+import com.yup.manager.app.utils.simpleLog
 import kotlinx.android.synthetic.main.activity_login.*
 import retrofit2.HttpException
 import javax.inject.Inject
@@ -37,6 +38,7 @@ class LoginActivity : AppCompatActivity() {
     private fun observeIsLoggedIn() {
         loginViewModel.isLoggedInLiveData.removeObservers(this)
         loginViewModel.isLoggedInLiveData.observe(this, Observer {
+            simpleLog("isLoggedIn = ${it.data}")
             if (it.data == true) {
                 startMain()
             }
@@ -44,9 +46,11 @@ class LoginActivity : AppCompatActivity() {
     }
 
     private fun setClickListeners() {
-        startPb()
-        loginViewModel.login(et_login.text.toString(), et_password.text.toString())
-        observeLogin()
+        btn_login.setOnClickListener {
+            startPb()
+            loginViewModel.login(et_login.text.toString(), et_password.text.toString())
+            observeLogin()
+        }
     }
 
     fun observeLogin() {

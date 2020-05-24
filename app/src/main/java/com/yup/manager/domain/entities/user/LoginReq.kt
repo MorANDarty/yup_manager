@@ -4,6 +4,6 @@ import com.google.gson.annotations.SerializedName
 
 
 data class LoginReq(
-    @SerializedName("login") var login: String,
+    @SerializedName("email") var login: String,
     @SerializedName("password") var password: String
 )

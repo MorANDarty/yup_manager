@@ -77,7 +77,15 @@ class OrderViewModel @Inject constructor(
                 .subscribe(
                     {
                         simpleLog(it.toString())
-                        orderListLiveData.value = Response(it.orders, null)
+                        val allOrders = arrayListOf<Order>()
+                        it.blocks.forEach { block ->
+                            block.orders.forEach { o ->
+                                val order = o
+                                order.name = block.name
+                                allOrders.add(order)
+                            }
+                        }
+                        orderListLiveData.value = Response(allOrders, null)
                         orderListLiveData.value = Response(null, null)
                     },
                     {

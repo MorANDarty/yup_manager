@@ -25,13 +25,13 @@ class OrderRepositoryImpl @Inject constructor(private val restApiService: RestAp
 
 
     override fun approveOrder(token: String, orderId: String): Single<RespOrder> =
-        restApiService.approveOrder(token, orderId)
+        restApiService.approveOrder("Bearer $token", orderId)
 
     override fun cancelOrder(token: String, orderId: String): Single<RespOrder> =
-        restApiService.rejectOrder(token, orderId)
+        restApiService.rejectOrder("Bearer $token", orderId)
 
-    override fun completeOrder(token: String, orderId: String): Single<RespOrder> = restApiService.completeOrder(token, orderId)
+    override fun completeOrder(token: String, orderId: String): Single<RespOrder> = restApiService.completeOrder("Bearer $token", orderId)
 
-    override fun getOrders(token: String): Single<RespOrdersList> = restApiService.getOrders(token)
+    override fun getOrders(token: String): Single<RespOrdersList> = restApiService.getOrders("Bearer $token")
 
 }

@@ -80,9 +80,9 @@ class MainActivity : AppCompatActivity(), MainView {
     }
 
     override fun onBackPressed() {
-        if(supportFragmentManager.findFragmentById(R.id.container_main) is OrdersFragment){
+        if (supportFragmentManager.findFragmentById(R.id.container_main) is OrdersFragment) {
             System.exit(0)
-        }else{
+        } else {
             super.onBackPressed()
         }
     }
