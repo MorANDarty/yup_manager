@@ -17,8 +17,5 @@ data class Order(
     @SerializedName("company_id") var companyId: String,
     @SerializedName("service_address") var serviceAddress: String,
     @SerializedName("onPlaceWay") var onPlaceWay: String,
-    @SerializedName("user_name") var userName: String,
-    @SerializedName("user_surname") var userSurname: String,
-    @SerializedName("user_phone") var userPhone: String,
-    @SerializedName("user_avatar") var userAvatar:String
+    @SerializedName("owner") var owner: Owner
 )

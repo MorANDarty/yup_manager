@@ -47,10 +47,10 @@ class OrdersListAdapter(
 
     inner class OrderViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         fun bind(order: Order) {
-            itemView.tv_customer_name.text = order.userName + " "+order.userSurname
+            itemView.tv_customer_name.text = order.owner.name + " "+order.owner.surname
             itemView.tv_order_name_item.text = order.name
             itemView.tv_time_item.text = getDateAndTimeString(order.time.from)
-            Glide.with(itemView).load(order.userAvatar).into(itemView.img_avatar_item)
+            Glide.with(itemView).load(order.owner.picture).into(itemView.img_avatar_item)
 
             itemView.setOnClickListener {
                 callback.onCallback(order)

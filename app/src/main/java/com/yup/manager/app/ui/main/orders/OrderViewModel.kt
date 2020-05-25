@@ -82,6 +82,7 @@ class OrderViewModel @Inject constructor(
                             block.orders.forEach { o ->
                                 val order = o
                                 order.name = block.name
+                                order.cost = block.cost.toString()
                                 allOrders.add(order)
                             }
                         }
