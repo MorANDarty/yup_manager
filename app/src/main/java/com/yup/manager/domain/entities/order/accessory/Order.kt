@@ -19,3 +19,11 @@ data class Order(
     @SerializedName("onPlaceWay") var onPlaceWay: String,
     @SerializedName("owner") var owner: Owner
 )
+
+data class UpdateOrderResp(
+    @SerializedName("order") var order: RespUpdateOrder
+)
+
+data class RespUpdateOrder(
+    @SerializedName("status") var status:List<String>
+)

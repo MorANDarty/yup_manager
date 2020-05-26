@@ -8,5 +8,5 @@ import javax.inject.Inject
 
 class ProfileInteractor @Inject constructor(private val userRepo: IUserRepository) {
 
-    fun getProfile() = userRepo.getProfile().subscribeOn(Schedulers.io())
+    fun getProfile(token:String) = userRepo.getProfile(token).subscribeOn(Schedulers.io())
 }

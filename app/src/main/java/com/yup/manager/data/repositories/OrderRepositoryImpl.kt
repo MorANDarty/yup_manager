@@ -1,10 +1,9 @@
 package com.yup.manager.data.repositories
 
 import com.yup.manager.data.rest.RestApiService
-import com.yup.manager.domain.entities.order.OrderSample
-import com.yup.manager.domain.entities.order.RespOrder
-import com.yup.manager.domain.entities.order.RespOrdersList
-import com.yup.manager.domain.entities.order.RespScanning
+import com.yup.manager.domain.entities.order.*
+import com.yup.manager.domain.entities.order.accessory.Order
+import com.yup.manager.domain.entities.order.accessory.UpdateOrderResp
 import com.yup.manager.domain.repositories.IOrderRepository
 import com.yup.manager.domain.utils.getSomeOrders
 import io.reactivex.Single
@@ -24,14 +23,16 @@ class OrderRepositoryImpl @Inject constructor(private val restApiService: RestAp
     ).toSingle()
 
 
-    override fun approveOrder(token: String, orderId: String): Single<RespOrder> =
-        restApiService.approveOrder("Bearer $token", orderId)
+    override fun approveOrder(token: String, orderId: String): Single<UpdateOrderResp> =
+        restApiService.updateOrderState("Bearer $token", ReqUpdateBody(orderId, "rejected"))
 
-    override fun cancelOrder(token: String, orderId: String): Single<RespOrder> =
-        restApiService.rejectOrder("Bearer $token", orderId)
+    override fun cancelOrder(token: String, orderId: String): Single<UpdateOrderResp> =
+        restApiService.updateOrderState("Bearer $token", ReqUpdateBody(orderId, "rejected"))
 
-    override fun completeOrder(token: String, orderId: String): Single<RespOrder> = restApiService.completeOrder("Bearer $token", orderId)
+    override fun completeOrder(token: String, orderId: String): Single<RespOrder> =
+        restApiService.completeOrder("Bearer $token", orderId)
 
-    override fun getOrders(token: String): Single<RespOrdersList> = restApiService.getOrders("Bearer $token")
+    override fun getOrders(token: String): Single<RespOrdersList> =
+        restApiService.getOrders("Bearer $token")
 
 }

@@ -26,7 +26,8 @@ class OrderInfoFragment : BaseFragment() {
     @Inject
     lateinit var viewModelFactory: ViewModelFactory
 
-    private lateinit var viewModel: OrderInfoViewModel
+    @Inject
+    lateinit var viewModel: OrderInfoViewModel
     private var orderId: String? = null
 
     override fun onCreateView(

@@ -82,7 +82,11 @@ class MainActivity : AppCompatActivity(), MainView {
     override fun onBackPressed() {
         if (supportFragmentManager.findFragmentById(R.id.container_main) is OrdersFragment) {
             System.exit(0)
-        } else {
+        } else if (supportFragmentManager.findFragmentById(R.id.container_main) is OrderInfoFragment) {
+            super.onBackPressed()
+            val fragment = supportFragmentManager.findFragmentById(R.id.container_main) as OrdersFragment
+            fragment.updateOrders()
+        } else{
             super.onBackPressed()
         }
     }

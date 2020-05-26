@@ -11,6 +11,7 @@ import android.widget.Toast
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.ViewModelProviders
+import com.bumptech.glide.Glide
 
 import com.yup.manager.R
 import com.yup.manager.app.ManagerApplication
@@ -63,12 +64,13 @@ class ProfileFragment : Fragment() {
         profileViewModel.profileLiveData.observe(this, Observer {
             if (it.data!=null){
                 val profile = it.data
-                tv_name.text = profile.name
+                tv_name.text = profile.userBlock.profile.name + " " + profile.userBlock.profile.surname
+                Glide.with(img_wallpaper).load(profile.userBlock.profile.picture).into(img_wallpaper)
             }
             if(it.error!=null){
                 val error = it.error
-                if(it is HttpException){
-                    when(it.code()){
+                if(error is HttpException){
+                    when(error.code()){
                         //Todo
                     }
                 }else{
